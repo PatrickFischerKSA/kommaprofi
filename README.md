@@ -19,8 +19,11 @@ Kommaprofi ist ein browserbasierter Kommatrainer fuer den Deutschunterricht. Die
 - `app.js` - Trainerlogik, Fortschritt, Auswertung, Feedback
 - `data/rules.js` - eingebettete Duden-Regeln
 - `data/exercises.js` - eingebetteter kuratierter Aufgabenpool
+- `data/rules.json` - rohe Regeldaten aus der gelieferten Quelle
+- `data/exercises.json` - rohe Uebungsdaten aus der gelieferten Quelle
 - `.github/workflows/pages.yml` - Deployment fuer GitHub Pages
 - `assets/Kommasetzen.jpg` - Hintergrundmotiv
+- `assets/duden.pdf` - optionales Referenzmaterial
 
 ## Lokal starten
 
