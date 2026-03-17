@@ -53,17 +53,20 @@ body {
 }
 
 .backdrop::before {
-  inset: -6%;
-  background: url("assets/Kommasetzen.jpg") center 30% / cover no-repeat;
-  filter: blur(12px) saturate(0.92) brightness(0.62);
-  opacity: 0.52;
-  transform: scale(1.08);
+  inset: -4%;
+  background:
+    radial-gradient(circle at 78% 24%, rgba(255, 246, 220, 0.14), transparent 20%),
+    url("assets/Kommasetzen.jpg") center 22% / cover no-repeat;
+  filter: blur(5px) saturate(1.02) brightness(0.78) contrast(1.04);
+  opacity: 0.72;
+  transform: scale(1.03);
 }
 
 .backdrop::after {
   background:
-    linear-gradient(135deg, rgba(7, 17, 25, 0.8), rgba(7, 17, 25, 0.32)),
-    linear-gradient(180deg, rgba(7, 17, 25, 0.2), rgba(7, 17, 25, 0.75));
+    radial-gradient(circle at 78% 22%, rgba(239, 195, 110, 0.12), transparent 20%),
+    linear-gradient(135deg, rgba(7, 17, 25, 0.58), rgba(7, 17, 25, 0.18)),
+    linear-gradient(180deg, rgba(7, 17, 25, 0.12), rgba(7, 17, 25, 0.68));
 }
 
 .app-shell {
@@ -120,10 +123,67 @@ body {
   color: var(--muted);
 }
 
-.hero-badges {
+.hero-side {
   display: grid;
   gap: 12px;
   align-self: stretch;
+}
+
+.hero-art {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+  border-radius: 24px;
+  border: 1px solid rgba(244, 232, 212, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    rgba(255, 255, 255, 0.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 18px 42px rgba(0, 0, 0, 0.26);
+}
+
+.hero-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 20, 28, 0.02), rgba(10, 20, 28, 0.26)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 24%);
+  pointer-events: none;
+}
+
+.hero-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+  object-position: center 24%;
+  transform: scale(1.02);
+}
+
+.hero-art figcaption {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  z-index: 1;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(8, 17, 24, 0.62);
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  backdrop-filter: blur(8px);
+}
+
+.hero-badges {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .hero-badges article,
@@ -635,6 +695,10 @@ mark {
   }
 
   .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-badges {
     grid-template-columns: 1fr;
   }
 
