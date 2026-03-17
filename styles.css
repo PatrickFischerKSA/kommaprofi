@@ -164,22 +164,6 @@ body {
   transform: scale(1.02);
 }
 
-.hero-art figcaption {
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 14px;
-  z-index: 1;
-  margin: 0;
-  padding: 10px 12px;
-  border-radius: 14px;
-  background: rgba(8, 17, 24, 0.62);
-  color: var(--text);
-  font-size: 0.95rem;
-  line-height: 1.45;
-  backdrop-filter: blur(8px);
-}
-
 .hero-badges {
   display: grid;
   gap: 12px;
