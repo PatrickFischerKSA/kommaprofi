@@ -1,37 +1,75 @@
-:root{--ok:#2e7d32;--bad:#c62828;--accent:#1565c0;--muted:#555}
+:root{
+  --bg:#0f172a;          /* slate-900 */
+  --bg-soft:#111827;     /* gray-900 */
+  --panel:#0b1222;       /* deep panel */
+  --card:#0b1222;        /* card base */
+  --text:#e5e7eb;        /* gray-200 */
+  --muted:#94a3b8;       /* slate-400 */
+  --brand:#7c3aed;       /* violet-600 */
+  --brand-2:#06b6d4;     /* cyan-500 */
+  --ok:#22c55e;          /* green-500 */
+  --bad:#ef4444;         /* red-500 */
+  --border:rgba(148,163,184,.25);
+  --shadow:0 10px 30px rgba(2,6,23,.45);
+}
 *{box-sizing:border-box}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;background:#fafafa;color:#222}
-header{background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:3}
-header h1{margin:0;padding:1rem}
-nav{padding:0 1rem 0.5rem}
-.top-options{padding:0 1rem 1rem}
-nav .tab-btn{margin-right:.5rem;padding:.5rem .75rem;border:1px solid #ccc;background:#f6f6f6;border-radius:6px;cursor:pointer}
-nav .tab-btn.active{background:#e3f2fd;border-color:var(--accent);color:var(--accent)}
-main{max-width:1000px;margin:0 auto;padding:1rem}
-.level-picker{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin-bottom:1rem}
-#exercise{background:#fff;border:1px solid #ddd;border-radius:8px;padding:1rem;min-height:220px}
-.sentence{font-size:1.15rem;line-height:1.9;margin:1rem 0;padding:.75rem}
+html,body{height:100%}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.15),transparent), radial-gradient(1200px 600px at 90% 10%, rgba(6,182,212,.12),transparent), var(--bg);color:var(--text)}
 
-/* --- Tabs sichtbar/unsichtbar schalten --- */
-.tab { display: none; }
-.tab.active { display: block; }
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:10;background:linear-gradient(90deg, rgba(12,18,34,.85), rgba(12,18,34,.7));backdrop-filter:blur(8px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1rem;padding:.75rem 1rem}
+.brand{display:flex;align-items:center;gap:.6rem;color:var(--brand)}
+.brand h1{font-size:1.15rem;margin:0;color:var(--text)}
+.tabs{display:flex;gap:.4rem;margin-left:1rem}
+.tab-btn{border:1px solid var(--border);background:transparent;color:var(--text);padding:.45rem .7rem;border-radius:10px;cursor:pointer;transition:.2s}
+.tab-btn:hover{background:rgba(124,58,237,.12);border-color:rgba(124,58,237,.35)}
+.tab-btn.active{background:linear-gradient(90deg, rgba(124,58,237,.25), rgba(6,182,212,.25));border-color:rgba(124,58,237,.55)}
+.options{margin-left:auto;display:flex;align-items:center;gap:1rem;color:var(--muted)}
+.switch{display:flex;align-items:center;gap:.4rem;cursor:pointer}
+.switch input{transform:translateY(1px)}
 
-/* --- Stacking: Übungsbereich über dem PDF --- */
-main, #home, .sentence { position: relative; z-index: 2; }
-#rules { position: relative; z-index: 1; }
-#rules object { display: block; position: relative; z-index: 0; pointer-events: auto; }
+main{max-width:1100px;margin:0 auto;padding:1rem}
 
-/* --- Klickbereiche: unsichtbar, aber klickbar --- */
-.comma-zone{ display:inline-block; width:1ch; height:1.2em; margin:0 -.5ch; cursor:pointer; pointer-events:auto; vertical-align:baseline; }
-.comma-char{ display:inline }
-.rule-picker{ margin-left:.4rem }
+/* Panels / Cards */
+.panel{border:1px solid var(--border);border-radius:16px;padding:1rem;background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));box-shadow:var(--shadow)}
+.card{animation:fadeIn .35s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.controls{margin-bottom:1rem}
 
-.bad{outline:2px solid var(--bad);background:#ffebee}
-.ok{outline:2px solid var(--ok);background:#e8f5e9}
-.feedback{font-size:.9rem;color:#666;margin-top:.25rem}
-.actions{display:flex;align-items:center;gap:.75rem;margin-top:.5rem}
-.hint{color:var(--muted)}
-footer{padding:1rem;color:#666}
+/* Exercise area */
+#exercise{min-height:240px}
+.sentence{font-size:1.125rem;line-height:1.95;margin:1rem 0;padding:.6rem .6rem;border-radius:12px;transition:.2s}
+.sentence:hover{background:rgba(148,163,184,.08)}
 
-/* Debug: ?debug=1 → Zonen sichtbar */
-.debug .comma-zone{ outline:1px dashed rgba(200,0,0,.55); background:rgba(200,0,0,.06) }
+/* Tabs */
+.tab{display:none}
+.tab.active{display:block}
+
+/* Stacking over PDF */
+main, #home, .sentence{position:relative;z-index:2}
+#rules{position:relative;z-index:1}
+#rules object{display:block;position:relative;z-index:0;pointer-events:auto}
+
+/* Click zones as buttons (max compatibility) */
+.comma-zone{background:transparent;border:0;padding:0;margin:0 -.5ch;width:1ch;height:1.2em;display:inline-block;cursor:pointer;pointer-events:auto;vertical-align:baseline}
+.comma-zone:focus{outline:2px solid rgba(124,58,237,.7);outline-offset:2px;border-radius:4px}
+.comma-char{display:inline}
+.rule-picker{margin-left:.45rem;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);padding:.2rem .45rem}
+
+/* Buttons */
+.btn{border:1px solid var(--border);padding:.55rem .9rem;border-radius:12px;background:rgba(255,255,255,.02);color:var(--text);cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(124,58,237,.18)}
+.btn.primary{background:linear-gradient(90deg, rgba(124,58,237,.25), rgba(6,182,212,.25));border-color:rgba(124,58,237,.55)}
+.btn.success{background:linear-gradient(90deg, rgba(34,197,94,.25), rgba(6,182,212,.2));border-color:rgba(34,197,94,.55)}
+.btn.ghost{background:transparent}
+.actions{display:flex;align-items:center;gap:.6rem;margin-top:.8rem}
+
+/* Feedback */
+.bad{outline:1px solid var(--bad);background:rgba(239,68,68,.07)}
+.ok{outline:1px solid var(--ok);background:rgba(34,197,94,.07)}
+.feedback{font-size:.95rem;color:var(--muted);margin-top:.25rem}
+
+.foot{border-top:1px solid var(--border);padding:1rem;color:var(--muted)}
+
+/* Debug visibility */
+.debug .comma-zone{outline:1px dashed rgba(200,0,0,.55);background:rgba(200,0,0,.06)}
