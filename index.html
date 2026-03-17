@@ -3,63 +3,75 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kommaprofi – Inline V2 (Fix)</title>
+  <title>Kommaprofi – Inline V3</title>
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
-  <header>
-    <h1>Kommaprofi</h1>
-    <nav>
-      <button class="tab-btn" data-tab="home">Übungen</button>
-      <button class="tab-btn" data-tab="rules">Regelwerk</button>
-      <button class="tab-btn" data-tab="about">Info</button>
+  <header class="topbar">
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18v2H3V5zm4 6h14v2H7v-2zm-4 6h18v2H3v-2z"/></svg>
+      <h1>Kommaprofi</h1>
+    </div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="home" id="home-tab">Übungen</button>
+      <button class="tab-btn" data-tab="rules" id="rules-tab">Regelwerk</button>
+      <button class="tab-btn" data-tab="about" id="about-tab">Info</button>
     </nav>
-    <div class="top-options">
-      <label class="toggle"><input type="checkbox" id="ch-mode" /> Schweiz‑Option (Briefanrede ohne Komma)</label>
+    <div class="options">
+      <label class="switch"><input type="checkbox" id="ch-mode"><span>Schweiz‑Option (Briefanrede ohne Komma)</span></label>
     </div>
   </header>
 
   <main>
-    <section id="home" class="tab active">
-      <div class="level-picker">
-        <label for="level">Level:</label>
-        <select id="level">
-          <option value="Starter">Starter*in</option>
-          <option value="Azubi">Azubi</option>
-          <option value="Profi">Profi</option>
-          <option value="Expert">Expert*in</option>
-        </select>
-        <button id="load">Start</button>
-        <label class="toggle"><input type="checkbox" id="require-why" /> Begründung abfragen (falls verfügbar)</label>
+    <section id="home" class="tab active" aria-labelledby="home-tab">
+      <div class="panel controls">
+        <div class="row">
+          <label for="level">Level:</label>
+          <select id="level">
+            <option value="Starter">Starter*in</option>
+            <option value="Azubi">Azubi</option>
+            <option value="Profi">Profi</option>
+            <option value="Expert">Expert*in</option>
+          </select>
+          <button id="load" type="button" class="btn primary">Start</button>
+          <label class="switch"><input type="checkbox" id="require-why"><span>Begründung abfragen (falls verfügbar)</span></label>
+        </div>
       </div>
-      <div id="exercise"></div>
+
+      <div id="exercise" class="panel card" aria-live="polite"></div>
+
       <div class="actions">
-        <button id="check">Prüfen</button>
-        <button id="next">Neue Runde</button>
+        <button id="check" type="button" class="btn success">Prüfen</button>
+        <button id="next" type="button" class="btn">Neue Runde</button>
+        <button id="reset" type="button" class="btn ghost">Reset</button>
         <span id="score"></span>
       </div>
     </section>
 
-    <section id="rules" class="tab">
+    <section id="rules" class="tab" aria-labelledby="rules-tab">
       <h2>Regelwerk (Duden, D100–D132)</h2>
-      <object data="assets/duden.pdf" type="application/pdf" width="100%" height="800px">
-        <p>PDF kann nicht geladen werden. <a href="assets/duden.pdf" target="_blank" rel="noopener">Direkt öffnen</a>.</p>
-      </object>
+      <div class="panel card">
+        <object data="assets/duden.pdf" type="application/pdf" width="100%" height="800px">
+          <p>PDF kann nicht geladen werden. <a href="assets/duden.pdf" target="_blank" rel="noopener">Direkt öffnen</a>.</p>
+        </object>
+      </div>
     </section>
 
-    <section id="about" class="tab">
-      <h2>So arbeitest du mit Kommaprofi (Inline)</h2>
-      <ol>
-        <li>Klicke zwischen Wörter, um <code>,</code> einzufügen oder zu entfernen.</li>
-        <li>Bei höheren Levels wird zusätzlich die passende <strong>Regel</strong> abgefragt.</li>
-        <li>Mit <strong>Prüfen</strong> erhältst du sofortiges Feedback.</li>
-      </ol>
-      <p><strong>Schweiz‑Option:</strong> Nach <em>D132</em> wird bei Briefanreden auch die Variante <em>ohne Komma</em> akzeptiert.</p>
-      <p class="hint">Lehrkraftmodus: URL-Parameter <code>?teacher=1</code> blendet Hinweise nach der Prüfung ein. <em>Debug</em>: <code>?debug=1</code> visualisiert Klickzonen.</p>
+    <section id="about" class="tab" aria-labelledby="about-tab">
+      <div class="panel card">
+        <h2>So arbeitest du mit Kommaprofi (Inline)</h2>
+        <ol>
+          <li>Klicke zwischen Wörter, um <code>,</code> einzufügen oder zu entfernen.</li>
+          <li>Bei höheren Levels wird zusätzlich die passende <strong>Regel</strong> abgefragt.</li>
+          <li>Mit <strong>Prüfen</strong> erhältst du sofortiges Feedback.</li>
+        </ol>
+        <p><strong>Schweiz‑Option:</strong> Nach <em>D132</em> wird bei Briefanreden auch die Variante <em>ohne Komma</em> akzeptiert.</p>
+        <p class="hint">Lehrkraftmodus: URL-Parameter <code>?teacher=1</code> blendet Hinweise nach der Prüfung ein. <em>Debug</em>: <code>?debug=1</code> visualisiert Klickzonen.</p>
+      </div>
     </section>
   </main>
 
-  <footer>
+  <footer class="foot">
     <small>© 2026 Kommaprofi – MIT License</small>
   </footer>
 
