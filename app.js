@@ -1,606 +1,557 @@
-const RULES = [
-  {
-    id: "list",
-    label: "Reihung / Aufzählung",
-    short: "Reihung",
-  },
-  {
-    id: "addition",
-    label: "Nachgestellter Zusatz",
-    short: "Zusatz",
-  },
-  {
-    id: "subordinate",
-    label: "Nebensatz",
-    short: "Nebensatz",
-  },
-  {
-    id: "none",
-    label: "Keine passende Regel",
-    short: "Distraktor",
-  },
-];
-
-const SUBORDINATE_STARTERS = new Set([
-  "als",
-  "bevor",
-  "dass",
-  "die",
-  "ob",
-  "obwohl",
-  "sobald",
-  "was",
-  "wenn",
-  "weil",
-  "während",
-]);
-
-const SIMPLE_COORDINATORS = new Set(["und", "oder"]);
-
 const LEVELS = [
   {
-    id: "beginner",
-    name: "Anfänger",
-    tag: "Start",
-    subtitle: "Einstieg mit klaren Satzmustern",
+    id: "Starter",
+    name: "Starter*in",
+    tag: "Basis",
     blurb:
-      "Kurze Sätze mit einer dominanten Regel. Ziel: sichere Klickroutine an allen Wortgrenzen.",
-    focus:
-      "Setze die fehlenden Kommas. Achte besonders auf einfache Aufzählungen, Zusätze und Nebensätze.",
-    requiresRules: false,
-    tasks: [
-      {
-        id: "b1",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: ["Wenn", "der", "Bus", "kommt", "laufen", "wir", "los."],
-        commas: [{ gap: 3, rule: "subordinate" }],
-        explanation:
-          "Der einleitende Nebensatz endet vor dem Hauptsatz und wird mit einem Komma abgeschlossen.",
-      },
-      {
-        id: "b2",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: ["Wir", "kauften", "Brot", "Milch", "und", "Käse."],
-        commas: [{ gap: 2, rule: "list" }],
-        explanation:
-          "In der Reihung steht das Komma nur zwischen den ersten Gliedern, nicht vor dem einfachen 'und'.",
-      },
-      {
-        id: "b3",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: ["Lea", "meine", "Cousine", "liest", "gern", "Krimis."],
-        commas: [
-          { gap: 0, rule: "addition" },
-          { gap: 2, rule: "addition" },
-        ],
-        explanation:
-          "Der Zusatz 'meine Cousine' ist eingeschoben und wird vorne und hinten mit Kommas abgegrenzt.",
-      },
-      {
-        id: "b4",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: [
-          "Ich",
-          "rufe",
-          "dich",
-          "an",
-          "sobald",
-          "ich",
-          "zuhause",
-          "bin.",
-        ],
-        commas: [{ gap: 3, rule: "subordinate" }],
-        explanation:
-          "Der Nebensatz beginnt mit 'sobald' und wird vom übergeordneten Satz durch ein Komma getrennt.",
-      },
-      {
-        id: "b5",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: ["Der", "Himmel", "war", "grau", "kalt", "und", "windig."],
-        commas: [{ gap: 3, rule: "list" }],
-        explanation:
-          "Adjektive in einer Reihung werden mit Komma getrennt, aber nicht direkt vor dem einfachen 'und'.",
-      },
-    ],
+      "Kurze und klare Uebungen: einfache Aufzaehlungen, Zusatze und erste sichere Nicht-Komma-Faelle.",
   },
   {
-    id: "advanced",
-    name: "Fortgeschrittener",
-    tag: "Mix",
-    subtitle: "Gemischte Satzmuster und erste Stolperstellen",
+    id: "Azubi",
+    name: "Azubi",
+    tag: "Aufbau",
     blurb:
-      "Mehrere mögliche Klickstellen, längere Sätze und erste Prioritätsfälle aus dem Theorieblatt.",
-    focus:
-      "Setze die Kommas in gemischten Sätzen. Lass dich nicht von verlockenden Wortgrenzen täuschen.",
-    requiresRules: false,
-    tasks: [
-      {
-        id: "a1",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: [
-          "Obwohl",
-          "es",
-          "schon",
-          "spät",
-          "war",
-          "blieben",
-          "wir",
-          "noch",
-          "kurz",
-          "und",
-          "tranken",
-          "Tee.",
-        ],
-        commas: [{ gap: 4, rule: "subordinate" }],
-        explanation:
-          "Der vorgeschaltete Nebensatz endet vor 'blieben'. Vor dem einfachen 'und' steht hier kein Pflichtkomma.",
-      },
-      {
-        id: "a2",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: [
-          "Mara",
-          "fährt",
-          "vor",
-          "allem",
-          "im",
-          "Winter",
-          "am",
-          "liebsten",
-          "Zug.",
-        ],
-        commas: [
-          { gap: 1, rule: "addition" },
-          { gap: 5, rule: "addition" },
-        ],
-        explanation:
-          "Der eingeschobene Zusatz 'vor allem im Winter' wird am Anfang und am Ende mit Kommas markiert.",
-      },
-      {
-        id: "a3",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: [
-          "Ich",
-          "komme",
-          "sobald",
-          "ich",
-          "Feierabend",
-          "habe",
-          "bei",
-          "euch",
-          "vorbei.",
-        ],
-        commas: [
-          { gap: 1, rule: "subordinate" },
-          { gap: 5, rule: "subordinate" },
-        ],
-        explanation:
-          "Der eingeschobene Nebensatz 'sobald ich Feierabend habe' braucht an beiden Grenzen ein Komma.",
-      },
-      {
-        id: "a4",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: ["Auf", "dem", "Tisch", "lagen", "Hefte", "Stifte", "Fotos", "und", "Karten."],
-        commas: [
-          { gap: 4, rule: "list" },
-          { gap: 5, rule: "list" },
-        ],
-        explanation:
-          "In der Aufzählung stehen Kommas zwischen den ersten Gliedern, aber nicht vor dem letzten 'und'.",
-      },
-      {
-        id: "a5",
-        prompt: "Setze die fehlenden Kommas.",
-        tokens: [
-          "Nina",
-          "meine",
-          "ältere",
-          "Schwester",
-          "und",
-          "Tom",
-          "kamen",
-          "später.",
-        ],
-        commas: [
-          { gap: 0, rule: "addition" },
-          { gap: 3, rule: "addition" },
-        ],
-        explanation:
-          "Der Zusatz 'meine ältere Schwester' muss mit Kommas abgegrenzt werden. Diese Regel hat Vorrang, auch wenn der Satz danach weiterreiht.",
-      },
-    ],
+      "Mehr Satzgefuehl: Nebensaetze, Infinitivgruppen und erste Strukturentscheidungen ohne Layout-Hilfe.",
   },
   {
-    id: "expert",
-    name: "Experte",
-    tag: "Regeln",
-    subtitle: "Kommas setzen und Regel benennen",
-    blurb:
-      "Jede gesetzte Stelle braucht zusätzlich die passende Duden-Regel. Die Optionen werden gemischt.",
-    focus:
-      "Setze erst die Kommas und ordne dann jeder Stelle die richtige Regel zu.",
-    requiresRules: true,
-    tasks: [
-      {
-        id: "e1",
-        prompt: "Setze die Kommas und benenne jede Regel.",
-        tokens: [
-          "Paul",
-          "mein",
-          "Teamkollege",
-          "trainiert",
-          "weiter",
-          "obwohl",
-          "es",
-          "regnet.",
-        ],
-        commas: [
-          { gap: 0, rule: "addition" },
-          { gap: 2, rule: "addition" },
-          { gap: 4, rule: "subordinate" },
-        ],
-        explanation:
-          "Erst wird der Zusatz 'mein Teamkollege' abgegrenzt, danach trennt ein Komma den anschließenden Nebensatz ab.",
-      },
-      {
-        id: "e2",
-        prompt: "Setze die Kommas und benenne jede Regel.",
-        tokens: [
-          "Wir",
-          "lesen",
-          "Romane",
-          "vor",
-          "allem",
-          "Krimis",
-          "und",
-          "sprechen",
-          "danach",
-          "darüber.",
-        ],
-        commas: [
-          { gap: 2, rule: "addition" },
-          { gap: 5, rule: "addition" },
-        ],
-        explanation:
-          "Der Zusatz 'vor allem Krimis' ist eingeschoben. Vor dem einfachen 'und' braucht es trotzdem kein weiteres Pflichtkomma.",
-      },
-      {
-        id: "e3",
-        prompt: "Setze die Kommas und benenne jede Regel.",
-        tokens: [
-          "Sara",
-          "meine",
-          "Sitznachbarin",
-          "schreibt",
-          "wenn",
-          "es",
-          "still",
-          "ist",
-          "die",
-          "besten",
-          "Texte.",
-        ],
-        commas: [
-          { gap: 0, rule: "addition" },
-          { gap: 2, rule: "addition" },
-          { gap: 3, rule: "subordinate" },
-          { gap: 7, rule: "subordinate" },
-        ],
-        explanation:
-          "Der Satz kombiniert einen Zusatz und einen eingeschobenen Nebensatz. Beide Strukturen müssen sauber abgegrenzt werden.",
-      },
-      {
-        id: "e4",
-        prompt: "Setze die Kommas und benenne jede Regel.",
-        tokens: [
-          "Der",
-          "Weg",
-          "war",
-          "schmal",
-          "steil",
-          "und",
-          "an",
-          "manchen",
-          "Stellen",
-          "gefährlich.",
-        ],
-        commas: [{ gap: 3, rule: "list" }],
-        explanation:
-          "Die Adjektive 'schmal' und 'steil' stehen in einer Reihung. Vor dem einfachen 'und' bleibt die Wortgrenze leer.",
-      },
-    ],
-  },
-  {
-    id: "pro",
+    id: "Profi",
     name: "Profi",
-    tag: "Textlogik",
-    subtitle: "Lange Sätze mit überlagerten Regeln",
+    tag: "Feinheiten",
     blurb:
-      "Hier greifen mehrere Regeln zugleich. Ohne saubere Analyse lässt sich der Satz kaum korrekt kommasetzen.",
-    focus:
-      "Setze alle Kommas und belege jede Stelle mit der richtigen Regel. Achte besonders auf Vorrangfälle.",
-    requiresRules: true,
-    tasks: [
-      {
-        id: "p1",
-        prompt: "Setze die Kommas und benenne jede Regel.",
-        tokens: [
-          "Als",
-          "der",
-          "Gong",
-          "endlich",
-          "verstummte",
-          "Jana",
-          "unsere",
-          "Klassensprecherin",
-          "trat",
-          "nach",
-          "vorn",
-          "und",
-          "erklärte",
-          "ruhig",
-          "was",
-          "als",
-          "Nächstes",
-          "geschieht.",
-        ],
-        commas: [
-          { gap: 4, rule: "subordinate" },
-          { gap: 5, rule: "addition" },
-          { gap: 7, rule: "addition" },
-          { gap: 13, rule: "subordinate" },
-        ],
-        explanation:
-          "Der Satz beginnt mit einem Nebensatz, enthält danach einen Zusatz und endet mit einem weiteren Nebensatz.",
-      },
-      {
-        id: "p2",
-        prompt: "Setze die Kommas und benenne jede Regel.",
-        tokens: [
-          "Wir",
-          "sammelten",
-          "Notizen",
-          "Fragen",
-          "und",
-          "letzte",
-          "Beispiele",
-          "die",
-          "wir",
-          "später",
-          "vergleichen",
-          "wollten.",
-        ],
-        commas: [
-          { gap: 2, rule: "list" },
-          { gap: 6, rule: "subordinate" },
-        ],
-        explanation:
-          "Zuerst erscheint eine Reihung, danach trennt ein Komma den nachgestellten Nebensatz vom Rest des Satzes ab.",
-      },
-      {
-        id: "p3",
-        prompt: "Setze die Kommas und benenne jede Regel.",
-        tokens: [
-          "Milan",
-          "der",
-          "sonst",
-          "nie",
-          "nervös",
-          "wirkt",
-          "sprach",
-          "weiter",
-          "obwohl",
-          "einige",
-          "lachten",
-          "und",
-          "beendete",
-          "seinen",
-          "Vortrag",
-          "souverän.",
-        ],
-        commas: [
-          { gap: 0, rule: "addition" },
-          { gap: 5, rule: "addition" },
-          { gap: 7, rule: "subordinate" },
-        ],
-        explanation:
-          "Der eingeschobene Zusatz 'der sonst nie nervös wirkt' wird umklammert, danach folgt ein Nebensatz mit 'obwohl'.",
-      },
-      {
-        id: "p4",
-        prompt: "Setze die Kommas und benenne jede Regel.",
-        tokens: [
-          "Ich",
-          "glaube",
-          "dass",
-          "Lea",
-          "vor",
-          "allem",
-          "bei",
-          "Gruppenarbeiten",
-          "schnell",
-          "klare",
-          "Lösungen",
-          "findet.",
-        ],
-        commas: [
-          { gap: 1, rule: "subordinate" },
-          { gap: 3, rule: "addition" },
-          { gap: 7, rule: "addition" },
-        ],
-        explanation:
-          "Nach 'glaube' beginnt ein Nebensatz. Innerhalb dieses Nebensatzes wird der Zusatz 'vor allem bei Gruppenarbeiten' mit Kommas eingerahmt.",
-      },
-      {
-        id: "p5",
-        prompt: "Setze die Kommas und benenne jede Regel.",
-        tokens: [
-          "Lina",
-          "meine",
-          "ruhigste",
-          "Schülerin",
-          "notierte",
-          "Beobachtungen",
-          "Beispiele",
-          "und",
-          "was",
-          "ihr",
-          "sonst",
-          "noch",
-          "auffiel",
-          "im",
-          "Heft.",
-        ],
-        commas: [
-          { gap: 0, rule: "addition" },
-          { gap: 3, rule: "addition" },
-          { gap: 5, rule: "list" },
-          { gap: 7, rule: "subordinate" },
-          { gap: 12, rule: "subordinate" },
-        ],
-        explanation:
-          "Der Satz verknüpft einen Zusatz mit einer Reihung und einem eingeschobenen Nebensatz. Hier zeigt sich der Vorrang der Struktur vor bloßer Aufzählung besonders deutlich.",
-      },
-    ],
+      "Grenzfaelle, freigestellte Kommas und Duden-Sonderregeln mit sauberer Begruendung.",
+    forceWhy: true,
+  },
+  {
+    id: "Expert",
+    name: "Expert*in",
+    tag: "Komplex",
+    blurb:
+      "Mehrteilige Satzstrukturen, Einschuebe und regelbasierte Entscheidungen unter Druck.",
+    forceWhy: true,
   },
 ];
 
-const STORAGE_KEY = "kommatrainer-progress-v1";
+const STORAGE_KEY = "kommaprofi-progress-v2";
+const OPTIONS_KEY = "kommaprofi-options-v1";
+const ROUND_SIZE = 6;
 
 const state = {
-  currentLevelIndex: 0,
-  currentTaskIndex: 0,
-  selectedGaps: new Set(),
+  rules: {},
+  exercises: [],
+  currentLevelId: LEVELS[0].id,
+  round: [],
+  currentIndex: 0,
+  selectedSlots: new Set(),
   ruleSelections: {},
-  attempts: 0,
-  solvedTaskIds: new Set(),
-  totalChecks: 0,
-  correctChecks: 0,
-  feedbackLocked: false,
-  ruleOrder: [],
+  attemptsOnTask: 0,
+  locked: false,
+  evaluation: null,
+  progress: createEmptyProgress(),
+  options: {
+    requireWhy: false,
+    chMode: false,
+  },
 };
 
 const levelGridEl = document.getElementById("level-grid");
-const progressSummaryEl = document.getElementById("progress-summary");
-const currentLevelLabelEl = document.getElementById("current-level-label");
+const overallProgressCopyEl = document.getElementById("overall-progress-copy");
+const levelLabelEl = document.getElementById("level-label");
 const taskTitleEl = document.getElementById("task-title");
 const taskSubtitleEl = document.getElementById("task-subtitle");
 const taskInstructionEl = document.getElementById("task-instruction");
+const overallSolvedEl = document.getElementById("overall-solved");
+const overallTotalEl = document.getElementById("overall-total");
+const accuracyValueEl = document.getElementById("accuracy-value");
+const accuracyCopyEl = document.getElementById("accuracy-copy");
+const levelProgressEl = document.getElementById("level-progress");
+const levelProgressCopyEl = document.getElementById("level-progress-copy");
+const roundProgressEl = document.getElementById("round-progress");
+const roundProgressCopyEl = document.getElementById("round-progress-copy");
+const loadingBoxEl = document.getElementById("loading-box");
+const trainerContentEl = document.getElementById("trainer-content");
 const sentenceAreaEl = document.getElementById("sentence-area");
 const rulePanelEl = document.getElementById("rule-panel");
 const ruleAreaEl = document.getElementById("rule-area");
 const feedbackBoxEl = document.getElementById("feedback-box");
 const feedbackTextEl = document.getElementById("feedback-text");
-const modelBoxEl = document.getElementById("model-box");
-const scoreChipEl = document.getElementById("score-chip");
+const solutionBoxEl = document.getElementById("solution-box");
+const requireWhyEl = document.getElementById("require-why");
+const chModeEl = document.getElementById("ch-mode");
 const checkBtn = document.getElementById("check-btn");
 const resetBtn = document.getElementById("reset-btn");
 const nextBtn = document.getElementById("next-btn");
+const newRoundBtn = document.getElementById("new-round-btn");
+const rulebookListEl = document.getElementById("rulebook-list");
 
-function currentLevel() {
-  return LEVELS[state.currentLevelIndex];
-}
-
-function currentTask() {
-  return currentLevel().tasks[state.currentTaskIndex];
+function createEmptyProgress() {
+  return {
+    attempts: 0,
+    successes: 0,
+    solvedIds: [],
+    levelStats: Object.fromEntries(
+      LEVELS.map((level) => [
+        level.id,
+        {
+          attempts: 0,
+          successes: 0,
+          solvedIds: [],
+        },
+      ])
+    ),
+  };
 }
 
 function loadProgress() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      return;
+      return createEmptyProgress();
     }
 
     const parsed = JSON.parse(raw);
-    state.solvedTaskIds = new Set(parsed.solvedTaskIds || []);
-    state.totalChecks = parsed.totalChecks || 0;
-    state.correctChecks = parsed.correctChecks || 0;
+    const fresh = createEmptyProgress();
+
+    fresh.attempts = Number(parsed.attempts) || 0;
+    fresh.successes = Number(parsed.successes) || 0;
+    fresh.solvedIds = Array.isArray(parsed.solvedIds) ? parsed.solvedIds : [];
+
+    LEVELS.forEach((level) => {
+      const stats = parsed.levelStats?.[level.id] || {};
+      fresh.levelStats[level.id] = {
+        attempts: Number(stats.attempts) || 0,
+        successes: Number(stats.successes) || 0,
+        solvedIds: Array.isArray(stats.solvedIds) ? stats.solvedIds : [],
+      };
+    });
+
+    return fresh;
   } catch (error) {
     console.warn("Fortschritt konnte nicht geladen werden.", error);
+    return createEmptyProgress();
   }
 }
 
 function saveProgress() {
-  const payload = {
-    solvedTaskIds: [...state.solvedTaskIds],
-    totalChecks: state.totalChecks,
-    correctChecks: state.correctChecks,
-  };
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
 }
 
-function shuffle(values) {
-  const copy = [...values];
+function loadOptions() {
+  try {
+    const raw = localStorage.getItem(OPTIONS_KEY);
+    if (!raw) {
+      return;
+    }
+
+    const parsed = JSON.parse(raw);
+    state.options.requireWhy = Boolean(parsed.requireWhy);
+    state.options.chMode = Boolean(parsed.chMode);
+  } catch (error) {
+    console.warn("Optionen konnten nicht geladen werden.", error);
+  }
+}
+
+function saveOptions() {
+  localStorage.setItem(OPTIONS_KEY, JSON.stringify(state.options));
+}
+
+function levelMeta(levelId) {
+  return LEVELS.find((level) => level.id === levelId);
+}
+
+function currentExercise() {
+  return state.round[state.currentIndex];
+}
+
+function currentLevelExercises() {
+  return state.exercises.filter((exercise) => exercise.level === state.currentLevelId);
+}
+
+function currentLevelStats() {
+  return state.progress.levelStats[state.currentLevelId];
+}
+
+function shuffle(items) {
+  const copy = [...items];
+
   for (let index = copy.length - 1; index > 0; index -= 1) {
     const swapIndex = Math.floor(Math.random() * (index + 1));
     [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
   }
+
   return copy;
 }
 
-function getSolvedCountForLevel(level) {
-  return level.tasks.filter((task) => state.solvedTaskIds.has(task.id)).length;
+function sortRuleCodes(codes) {
+  return [...codes].sort((left, right) =>
+    left.localeCompare(right, "de", { numeric: true })
+  );
 }
 
-function getTotalTaskCount() {
-  return LEVELS.reduce((sum, level) => sum + level.tasks.length, 0);
+function normalizeWhitespace(text) {
+  return text.replace(/\s+/g, " ").trim();
 }
 
-function getAccuracy() {
-  if (state.totalChecks === 0) {
+function tokenize(text) {
+  return normalizeWhitespace(text).split(" ");
+}
+
+function compileExercise(exercise) {
+  const parts = exercise.text
+    .split("|")
+    .map((part) => normalizeWhitespace(part))
+    .filter(Boolean);
+  const tokens = tokenize(parts.join(" "));
+  const boundaryIndices = [];
+  let prefix = "";
+
+  for (let index = 0; index < parts.length - 1; index += 1) {
+    prefix = prefix ? `${prefix} ${parts[index]}` : parts[index];
+    boundaryIndices.push(tokenize(prefix).length - 1);
+  }
+
+  const slots = new Array(Math.max(0, tokens.length - 1)).fill("—");
+  const reasons = new Array(slots.length).fill("");
+
+  (exercise.slots || []).forEach((symbol, boundaryIndex) => {
+    const tokenBoundary = boundaryIndices[boundaryIndex];
+    if (tokenBoundary !== undefined) {
+      slots[tokenBoundary] = symbol;
+    }
+  });
+
+  (exercise.reasons || []).forEach((reason, boundaryIndex) => {
+    const tokenBoundary = boundaryIndices[boundaryIndex];
+    if (tokenBoundary !== undefined) {
+      reasons[tokenBoundary] = reason;
+    }
+  });
+
+  const alternativeSlots = (exercise.also_ok || []).map((variant) => {
+    const result = new Array(slots.length).fill("—");
+
+    variant.forEach((symbol, boundaryIndex) => {
+      const tokenBoundary = boundaryIndices[boundaryIndex];
+      if (tokenBoundary !== undefined) {
+        result[tokenBoundary] = symbol;
+      }
+    });
+
+    return result;
+  });
+
+  return {
+    ...exercise,
+    parts,
+    tokens,
+    slots,
+    reasons,
+    alternativeSlots,
+  };
+}
+
+function formatSentence(exercise, slotArray) {
+  const fragments = [];
+
+  exercise.tokens.forEach((token, index) => {
+    let fragment = token;
+    if (slotArray[index] === ",") {
+      fragment += ",";
+    }
+    fragments.push(fragment);
+  });
+
+  return fragments.join(" ");
+}
+
+function formatPrimarySolution(exercise) {
+  return formatSentence(exercise, exercise.slots);
+}
+
+function getAlternativeSolutions(exercise) {
+  return exercise.alternativeSlots.map((variant) => formatSentence(exercise, variant));
+}
+
+function currentNeedsWhy() {
+  const meta = levelMeta(state.currentLevelId);
+  return Boolean(meta?.forceWhy || state.options.requireWhy);
+}
+
+function getTotalExerciseCount() {
+  return state.exercises.length;
+}
+
+function getAccuracy(progress = state.progress) {
+  if (progress.attempts === 0) {
     return 0;
   }
 
-  return Math.round((state.correctChecks / state.totalChecks) * 100);
+  return Math.round((progress.successes / progress.attempts) * 100);
 }
 
-function updateHeader() {
-  const level = currentLevel();
-  const task = currentTask();
-  const solvedInLevel = getSolvedCountForLevel(level);
-
-  currentLevelLabelEl.textContent = level.name;
-  taskTitleEl.textContent = `${level.subtitle}`;
-  taskSubtitleEl.textContent = `Aufgabe ${state.currentTaskIndex + 1} von ${
-    level.tasks.length
-  } in ${level.name}. Bereits gelöst: ${solvedInLevel}.`;
-  taskInstructionEl.textContent = `${level.focus} ${task.prompt}`;
-  scoreChipEl.textContent = `Trefferquote ${getAccuracy()}%`;
+function setFeedback(message, tone = "info") {
+  feedbackTextEl.textContent = message;
+  feedbackBoxEl.className = `feedback-box ${tone}`;
 }
 
-function updateProgressSummary() {
-  progressSummaryEl.textContent = `${state.solvedTaskIds.size} von ${getTotalTaskCount()} Aufgaben gelöst`;
+function setLoading(message) {
+  loadingBoxEl.textContent = message;
+}
+
+function buildRound(levelId) {
+  const pool = state.exercises.filter((exercise) => exercise.level === levelId);
+  const solvedSet = new Set(state.progress.levelStats[levelId]?.solvedIds || []);
+  const unsolved = shuffle(pool.filter((exercise) => !solvedSet.has(exercise.id)));
+  const solved = shuffle(pool.filter((exercise) => solvedSet.has(exercise.id)));
+  const selected = [...unsolved, ...solved].slice(0, Math.min(ROUND_SIZE, pool.length));
+
+  return selected;
+}
+
+function resetTaskState() {
+  state.selectedSlots = new Set();
+  state.ruleSelections = {};
+  state.attemptsOnTask = 0;
+  state.locked = false;
+  state.evaluation = null;
+  nextBtn.classList.add("hidden");
+  checkBtn.disabled = false;
+  resetBtn.disabled = false;
+  solutionBoxEl.classList.add("hidden");
+  solutionBoxEl.innerHTML = "";
+}
+
+function startRound() {
+  state.round = buildRound(state.currentLevelId);
+  state.currentIndex = 0;
+  resetTaskState();
+  render();
+  setFeedback(
+    "Klicke zwischen den Woertern auf die Punkte. Auch Aufgaben ohne Komma kannst du direkt pruefen.",
+    "info"
+  );
+}
+
+function startLevel(levelId) {
+  state.currentLevelId = levelId;
+  startRound();
+}
+
+function buildUserSlots(exercise) {
+  return exercise.tokens.slice(0, -1).map((_, index) =>
+    state.selectedSlots.has(index) ? "," : "—"
+  );
+}
+
+function matchesVariant(guess, variant, reasons, chMode) {
+  for (let index = 0; index < guess.length; index += 1) {
+    if (chMode && reasons[index] === "D132") {
+      if (guess[index] === "," || guess[index] === "—") {
+        continue;
+      }
+    }
+
+    if (guess[index] !== variant[index]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function getVariantDistance(guess, variant, reasons, chMode) {
+  let mismatches = 0;
+
+  for (let index = 0; index < guess.length; index += 1) {
+    if (chMode && reasons[index] === "D132") {
+      continue;
+    }
+
+    if (guess[index] !== variant[index]) {
+      mismatches += 1;
+    }
+  }
+
+  return mismatches;
+}
+
+function getBestVariant(exercise, guess) {
+  const variants = [exercise.slots, ...exercise.alternativeSlots];
+  let best = variants[0];
+  let bestDistance = Number.POSITIVE_INFINITY;
+
+  variants.forEach((variant) => {
+    const distance = getVariantDistance(
+      guess,
+      variant,
+      exercise.reasons,
+      state.options.chMode
+    );
+
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      best = variant;
+    }
+  });
+
+  return best;
+}
+
+function evaluateCurrentExercise() {
+  const exercise = currentExercise();
+  const guess = buildUserSlots(exercise);
+  const variants = [exercise.slots, ...exercise.alternativeSlots];
+  const matchingVariant = variants.find((variant) =>
+    matchesVariant(guess, variant, exercise.reasons, state.options.chMode)
+  );
+  const target = matchingVariant || getBestVariant(exercise, guess);
+  const missing = [];
+  const extra = [];
+  const wrongRules = [];
+  const missingRules = [];
+
+  guess.forEach((symbol, index) => {
+    if (symbol === "—" && target[index] === ",") {
+      missing.push(index);
+    }
+
+    if (symbol === "," && target[index] === "—") {
+      extra.push(index);
+    }
+
+    if (symbol === "," && target[index] === ",") {
+      const expectedRule = exercise.reasons[index];
+      if (!state.ruleSelections[index] && currentNeedsWhy()) {
+        missingRules.push(index);
+      } else if (
+        currentNeedsWhy() &&
+        expectedRule &&
+        state.ruleSelections[index] !== expectedRule
+      ) {
+        wrongRules.push(index);
+      }
+    }
+  });
+
+  const isCorrect =
+    Boolean(matchingVariant) &&
+    (!currentNeedsWhy() ||
+      [...state.selectedSlots].every((index) => {
+        const expectedRule = exercise.reasons[index];
+        return !expectedRule || state.ruleSelections[index] === expectedRule;
+      }));
+
+  return {
+    guess,
+    target,
+    isCorrect,
+    missing,
+    extra,
+    wrongRules,
+    missingRules,
+  };
+}
+
+function getBoundaryLabel(exercise, index) {
+  return `nach "${exercise.tokens[index]}"`;
+}
+
+function getContextSnippet(exercise, index) {
+  const start = Math.max(0, index - 2);
+  const end = Math.min(exercise.tokens.length - 1, index + 2);
+  const left = exercise.tokens.slice(start, index + 1).join(" ");
+  const right = exercise.tokens.slice(index + 1, end + 1).join(" ");
+  return `${left} <mark>,</mark> ${right}`;
+}
+
+function buildHint(exercise, evaluation) {
+  if (evaluation.missing.length > 0) {
+    const index = evaluation.missing[0];
+    const ruleCode = exercise.reasons[index];
+    const ruleLabel = state.rules[ruleCode] || "passende Regel";
+    return `Dir fehlt ein Komma ${getBoundaryLabel(
+      exercise,
+      index
+    )}. Pruefe dort besonders die Struktur "${ruleCode}: ${ruleLabel}".`;
+  }
+
+  if (evaluation.extra.length > 0) {
+    return `Mindestens ein Komma ist zu viel, zum Beispiel ${getBoundaryLabel(
+      exercise,
+      evaluation.extra[0]
+    )}. Dort liegt vermutlich keine echte Satzgrenze vor.`;
+  }
+
+  if (evaluation.missingRules.length > 0) {
+    return `Die Kommasetzung kann stimmen, aber mindestens einer gesetzten Stelle fehlt noch die Regelzuordnung.`;
+  }
+
+  if (evaluation.wrongRules.length > 0) {
+    const index = evaluation.wrongRules[0];
+    const expectedRule = exercise.reasons[index];
+    return `Die gesetzte Stelle ${getBoundaryLabel(
+      exercise,
+      index
+    )} braucht die Regel ${expectedRule}: ${state.rules[expectedRule] || "Duden-Regel"}.`;
+  }
+
+  return "Analysiere den Satz noch einmal von der Satzstruktur her: Was gehoert zusammen, was ist Einschub, was ist Nebensatz?";
+}
+
+function lockTask() {
+  state.locked = true;
+  checkBtn.disabled = true;
+  resetBtn.disabled = true;
+  nextBtn.classList.remove("hidden");
+}
+
+function recordAttempt(success) {
+  const levelStats = currentLevelStats();
+
+  state.progress.attempts += 1;
+  levelStats.attempts += 1;
+
+  if (success) {
+    state.progress.successes += 1;
+    levelStats.successes += 1;
+
+    const exerciseId = currentExercise().id;
+
+    if (!state.progress.solvedIds.includes(exerciseId)) {
+      state.progress.solvedIds.push(exerciseId);
+    }
+
+    if (!levelStats.solvedIds.includes(exerciseId)) {
+      levelStats.solvedIds.push(exerciseId);
+    }
+  }
+
+  saveProgress();
 }
 
 function renderLevelCards() {
   levelGridEl.innerHTML = "";
 
-  LEVELS.forEach((level, levelIndex) => {
-    const solvedCount = getSolvedCountForLevel(level);
-    const ratio = Math.round((solvedCount / level.tasks.length) * 100);
+  LEVELS.forEach((level) => {
+    const stats = state.progress.levelStats[level.id];
+    const total = state.exercises.filter((exercise) => exercise.level === level.id).length;
+    const solved = stats?.solvedIds.length || 0;
+    const ratio = total === 0 ? 0 : Math.round((solved / total) * 100);
 
     const button = document.createElement("button");
     button.type = "button";
-    button.className = `level-card${levelIndex === state.currentLevelIndex ? " active" : ""}`;
-    button.addEventListener("click", () => {
-      state.currentLevelIndex = levelIndex;
-      state.currentTaskIndex = 0;
-      resetTaskState();
-      render();
-    });
+    button.className = `level-card${level.id === state.currentLevelId ? " active" : ""}`;
+    button.addEventListener("click", () => startLevel(level.id));
 
     button.innerHTML = `
-      <div class="level-card-top">
+      <div class="level-top">
         <div>
           <p class="level-name">${level.name}</p>
         </div>
         <span class="level-tag">${level.tag}</span>
       </div>
       <p>${level.blurb}</p>
-      <div class="level-progress">
-        <span>${solvedCount}/${level.tasks.length}</span>
+      <div class="level-progress-line">
+        <span>${solved}/${total} geloest</span>
         <div class="progress-bar" aria-hidden="true">
           <span style="width: ${ratio}%"></span>
         </div>
@@ -609,143 +560,153 @@ function renderLevelCards() {
 
     levelGridEl.appendChild(button);
   });
+
+  overallProgressCopyEl.textContent = `${state.progress.solvedIds.length} von ${getTotalExerciseCount()} Aufgaben bereits geloest`;
 }
 
-function resetTaskState() {
-  state.selectedGaps = new Set();
-  state.ruleSelections = {};
-  state.attempts = 0;
-  state.feedbackLocked = false;
-  state.ruleOrder = shuffle(RULES);
-  nextBtn.classList.add("hidden");
-  checkBtn.disabled = false;
-  resetBtn.disabled = false;
-  setFeedback(
-    "Setze die fehlenden Kommas, indem du die Punkte zwischen den Wörtern anklickst.",
-    "info"
-  );
-  hideModel();
+function renderRulebook() {
+  rulebookListEl.innerHTML = "";
+  const usedCodes = new Set();
+
+  state.exercises.forEach((exercise) => {
+    exercise.reasons.forEach((code) => {
+      if (code) {
+        usedCodes.add(code);
+      }
+    });
+  });
+
+  sortRuleCodes(usedCodes).forEach((code) => {
+    const item = document.createElement("article");
+    item.className = "rulebook-item";
+    item.innerHTML = `<strong>${code}</strong><p>${state.rules[code] || "Beschreibung folgt."}</p>`;
+    rulebookListEl.appendChild(item);
+  });
 }
 
-function setFeedback(text, tone) {
-  feedbackTextEl.textContent = text;
-  feedbackBoxEl.className = `feedback-box ${tone}`;
+function renderHeader() {
+  const exercise = currentExercise();
+  const meta = levelMeta(state.currentLevelId);
+  const totalInLevel = currentLevelExercises().length;
+  const solvedInLevel = currentLevelStats().solvedIds.length;
+  const accuracy = getAccuracy();
+
+  levelLabelEl.textContent = meta?.name || state.currentLevelId;
+  taskTitleEl.textContent = exercise
+    ? `Aufgabe ${state.currentIndex + 1} von ${state.round.length}`
+    : "Keine Aufgabe verfuegbar";
+  taskSubtitleEl.textContent = exercise
+    ? `${exercise.id} im Niveau ${meta?.name}. Diese Runde bevorzugt neue Aufgaben, wiederholt aber bei Bedarf bereits geloeste.`
+    : "Es konnte keine Uebung fuer dieses Niveau geladen werden.";
+  taskInstructionEl.textContent = currentNeedsWhy()
+    ? "Setze die Kommas und ordne jeder gesetzten Stelle den passenden Duden-Code zu."
+    : "Setze alle noetigen Kommas. Auch kein Komma kann die richtige Loesung sein.";
+
+  overallSolvedEl.textContent = String(state.progress.solvedIds.length);
+  overallTotalEl.textContent = `von ${getTotalExerciseCount()}`;
+  accuracyValueEl.textContent = `${accuracy}%`;
+  accuracyCopyEl.textContent =
+    state.progress.attempts === 0
+      ? "Noch keine Pruefung"
+      : `${state.progress.successes} von ${state.progress.attempts} Versuchen korrekt`;
+  levelProgressEl.textContent = `${solvedInLevel}/${totalInLevel}`;
+  levelProgressCopyEl.textContent =
+    solvedInLevel === 0
+      ? "Noch keine Aufgabe geloest"
+      : `${Math.round((solvedInLevel / totalInLevel) * 100)}% des Niveaus geschafft`;
+  roundProgressEl.textContent = exercise
+    ? `${state.currentIndex + 1}/${state.round.length}`
+    : "0/0";
+  roundProgressCopyEl.textContent = exercise
+    ? `Aktuelle Runde im Niveau ${meta?.name}`
+    : "Noch nicht gestartet";
 }
 
-function hideModel() {
-  modelBoxEl.classList.add("hidden");
-  modelBoxEl.innerHTML = "";
-}
-
-function buildSentenceArea() {
+function renderSentence() {
   sentenceAreaEl.innerHTML = "";
-  const task = currentTask();
+  const exercise = currentExercise();
 
-  task.tokens.forEach((token, tokenIndex) => {
+  if (!exercise) {
+    return;
+  }
+
+  exercise.tokens.forEach((token, index) => {
     const tokenEl = document.createElement("span");
     tokenEl.className = "token";
     tokenEl.textContent = token;
     sentenceAreaEl.appendChild(tokenEl);
 
-    if (tokenIndex < task.tokens.length - 1) {
-      const gapBtn = document.createElement("button");
-      gapBtn.type = "button";
-      gapBtn.className = `gap-btn${state.selectedGaps.has(tokenIndex) ? " active" : ""}`;
-      gapBtn.dataset.gap = String(tokenIndex);
-      gapBtn.setAttribute(
+    if (index < exercise.tokens.length - 1) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `comma-btn${state.selectedSlots.has(index) ? " active" : ""}${
+        state.locked ? " locked" : ""
+      }`;
+      button.dataset.index = String(index);
+      button.textContent = state.selectedSlots.has(index) ? "," : "·";
+      button.setAttribute(
         "aria-label",
-        `Wortgrenze nach ${token}. ${state.selectedGaps.has(tokenIndex) ? "Komma entfernen" : "Komma setzen"}`
+        `${state.selectedSlots.has(index) ? "Komma entfernen" : "Komma setzen"} ${getBoundaryLabel(
+          exercise,
+          index
+        )}`
       );
-      gapBtn.setAttribute(
-        "aria-pressed",
-        state.selectedGaps.has(tokenIndex) ? "true" : "false"
-      );
-      gapBtn.textContent = state.selectedGaps.has(tokenIndex) ? "," : ".";
-
-      gapBtn.addEventListener("click", () => {
-        if (state.feedbackLocked) {
-          return;
-        }
-
-        if (state.selectedGaps.has(tokenIndex)) {
-          state.selectedGaps.delete(tokenIndex);
-          delete state.ruleSelections[tokenIndex];
-        } else {
-          state.selectedGaps.add(tokenIndex);
-        }
-
-        buildSentenceArea();
-        renderRulePanel();
-      });
-
-      sentenceAreaEl.appendChild(gapBtn);
+      button.disabled = state.locked;
+      button.addEventListener("click", () => toggleSlot(index));
+      sentenceAreaEl.appendChild(button);
     }
   });
 }
 
-function getContextSnippet(tokens, gapIndex) {
-  const start = Math.max(0, gapIndex - 2);
-  const end = Math.min(tokens.length - 1, gapIndex + 2);
-  const left = tokens.slice(start, gapIndex + 1).join(" ");
-  const right = tokens.slice(gapIndex + 1, end + 1).join(" ");
-  return `${left} <mark>,</mark> ${right}`;
-}
-
 function renderRulePanel() {
-  const level = currentLevel();
+  ruleAreaEl.innerHTML = "";
 
-  if (!level.requiresRules) {
+  if (!currentNeedsWhy()) {
     rulePanelEl.classList.add("hidden");
-    ruleAreaEl.innerHTML = "";
     return;
   }
 
   rulePanelEl.classList.remove("hidden");
-  ruleAreaEl.innerHTML = "";
-
-  const selected = [...state.selectedGaps].sort((a, b) => a - b);
+  const exercise = currentExercise();
+  const selected = [...state.selectedSlots].sort((left, right) => left - right);
 
   if (selected.length === 0) {
-    const note = document.createElement("p");
-    note.className = "rule-context";
-    note.textContent =
-      "Sobald du ein Komma setzt, erscheint hier die passende Regelzuordnung.";
-    ruleAreaEl.appendChild(note);
+    const emptyState = document.createElement("p");
+    emptyState.className = "rule-context";
+    emptyState.textContent =
+      "Sobald du ein Komma setzt, kannst du die passende Duden-Regel direkt zuordnen.";
+    ruleAreaEl.appendChild(emptyState);
     return;
   }
 
-  selected.forEach((gapIndex, position) => {
+  selected.forEach((index, position) => {
     const card = document.createElement("article");
     card.className = "rule-card";
 
     const context = document.createElement("p");
     context.className = "rule-context";
-    context.innerHTML = `Stelle ${position + 1}: ${getContextSnippet(
-      currentTask().tokens,
-      gapIndex
-    )}`;
+    context.innerHTML = `Stelle ${position + 1}: ${getContextSnippet(exercise, index)}`;
 
     const select = document.createElement("select");
     select.className = "rule-select";
-    select.dataset.gap = String(gapIndex);
+    select.dataset.index = String(index);
 
     const placeholder = document.createElement("option");
     placeholder.value = "";
-    placeholder.textContent = "Regel wählen";
+    placeholder.textContent = "Regel waehlen";
     select.appendChild(placeholder);
 
-    state.ruleOrder.forEach((rule) => {
+    sortRuleCodes(Object.keys(state.rules)).forEach((code) => {
       const option = document.createElement("option");
-      option.value = rule.id;
-      option.textContent = rule.label;
-      if (state.ruleSelections[gapIndex] === rule.id) {
-        option.selected = true;
-      }
+      option.value = code;
+      option.textContent = `${code}: ${state.rules[code]}`;
+      option.selected = state.ruleSelections[index] === code;
       select.appendChild(option);
     });
 
+    select.disabled = state.locked;
     select.addEventListener("change", (event) => {
-      state.ruleSelections[gapIndex] = event.target.value;
+      state.ruleSelections[index] = event.target.value;
     });
 
     card.append(context, select);
@@ -753,482 +714,253 @@ function renderRulePanel() {
   });
 }
 
-function sortCommaData(commas) {
-  return [...commas].sort((left, right) => left.gap - right.gap);
-}
-
-function normalizeToken(token) {
-  return token.toLowerCase().replace(/[.,;:!?]/g, "");
-}
-
-function getRuleById(ruleId) {
-  return RULES.find((rule) => rule.id === ruleId);
-}
-
-function getGapLabel(task, gapIndex) {
-  return `nach "${task.tokens[gapIndex]}"`;
-}
-
-function getMissingCommas(task) {
-  return sortCommaData(task.commas).filter(
-    (comma) => !state.selectedGaps.has(comma.gap)
-  );
-}
-
-function getExtraCommas(task) {
-  const correctSet = new Set(task.commas.map((comma) => comma.gap));
-  return [...state.selectedGaps]
-    .filter((gap) => !correctSet.has(gap))
-    .sort((left, right) => left - right);
-}
-
-function getWrongRules(task) {
-  return sortCommaData(task.commas).filter(
-    (comma) =>
-      state.selectedGaps.has(comma.gap) &&
-      state.ruleSelections[comma.gap] &&
-      state.ruleSelections[comma.gap] !== comma.rule
-  );
-}
-
-function getRuleHint(task, comma) {
-  const nextToken = task.tokens[comma.gap + 1];
-  const nextWord = normalizeToken(nextToken);
-
-  if (comma.rule === "subordinate") {
-    if (SUBORDINATE_STARTERS.has(nextWord)) {
-      return `Achte auf das Signalwort "${nextToken.replace(/[.,;:!?]/g, "")}". Dort beginnt ein Nebensatz, der mit einem Komma abgetrennt werden muss.`;
-    }
-
-    return "Suche das Ende des Nebensatzes: Sobald der übergeordnete Satz wieder einsetzt, brauchst du ein Komma.";
-  }
-
-  if (comma.rule === "addition") {
-    return "Prüfe, ob hier ein eingeschobener Zusatz beginnt oder endet. Solche Zusätze stehen vorne und hinten zwischen Kommas.";
-  }
-
-  return "Prüfe, ob hier zwei gleichrangige Glieder einer Aufzählung nebeneinanderstehen. Vor einfachem \"und\" oder \"oder\" steht dabei meist kein Komma.";
-}
-
-function getExtraCommaHint(task, gapIndex) {
-  const nextWord = normalizeToken(task.tokens[gapIndex + 1] || "");
-
-  if (SIMPLE_COORDINATORS.has(nextWord)) {
-    return `Vor dem einfachen "${nextWord}" steht in einer normalen Reihung kein Pflichtkomma.`;
-  }
-
-  return `Prüfe die Stelle ${getGapLabel(
-    task,
-    gapIndex
-  )}: Dort muss wirklich ein Nebensatz, ein Zusatz oder eine Aufzählung beginnen oder enden, sonst bleibt die Wortgrenze leer.`;
-}
-
-function buildBeginnerHint(task) {
-  const missingCommas = getMissingCommas(task);
-  const extraCommas = getExtraCommas(task);
-
-  if (missingCommas.length > 0) {
-    const missingComma = missingCommas[0];
-    const rule = getRuleById(missingComma.rule);
-    return `Hinweis für Anfänger*innen: Dir fehlt ein Komma ${getGapLabel(
-      task,
-      missingComma.gap
-    )}. Denke an die Regel "${rule ? rule.label : missingComma.rule}". ${getRuleHint(
-      task,
-      missingComma
-    )}`;
-  }
-
-  if (extraCommas.length > 0) {
-    return `Hinweis für Anfänger*innen: Ein gesetztes Komma ist zu viel. ${getExtraCommaHint(
-      task,
-      extraCommas[0]
-    )}`;
-  }
-
-  return "Hinweis für Anfänger*innen: Lies den Satz langsam laut und prüfe an jeder Wortgrenze, ob dort ein Nebensatz beginnt oder endet, ein Zusatz eingeschoben ist oder eine Aufzählung vorliegt.";
-}
-
-function buildAdvancedHint(task) {
-  const missingCommas = getMissingCommas(task);
-  const extraCommas = getExtraCommas(task);
-
-  if (missingCommas.length > 0) {
-    const missingComma = missingCommas[0];
-    const rule = getRuleById(missingComma.rule);
-    return `Hinweis für Fortgeschrittene: Im Satz fehlt eine Stelle mit der Regel "${
-      rule ? rule.label : missingComma.rule
-    }". Prüfe besonders den Bereich ${getGapLabel(task, missingComma.gap)} und frage dich, ob dort ein Einschub oder ein Nebensatz vom Hauptsatz getrennt werden muss.`;
-  }
-
-  if (extraCommas.length > 0) {
-    return "Hinweis für Fortgeschrittene: Mindestens ein Komma ist überflüssig. Kontrolliere zuerst Stellen vor einfachem \"und\" oder \"oder\" sowie Wortgrenzen, an denen weder Zusatz noch Nebensatz klar erkennbar sind.";
-  }
-
-  return "Hinweis für Fortgeschrittene: Analysiere zuerst die Satzstruktur und entscheide dann, welche Regel stärker ist: Aufzählung, Zusatz oder Nebensatz.";
-}
-
-function buildExpertHint(task) {
-  const missingCommas = getMissingCommas(task);
-  const extraCommas = getExtraCommas(task);
-  const wrongRules = getWrongRules(task);
-
-  if (missingCommas.length > 0 || extraCommas.length > 0) {
-    const targetComma = missingCommas[0];
-    if (targetComma) {
-      const rule = getRuleById(targetComma.rule);
-      return `Hinweis für Expert*innen: Deine Analyse ist bei mindestens einer Kommastelle noch nicht präzise genug. Überprüfe die Zone ${getGapLabel(
-        task,
-        targetComma.gap
-      )} und unterscheide sauber zwischen ${rule ? rule.short : "Regeltyp"} und bloßer Satzmelodie.`;
-    }
-
-    return "Hinweis für Expert*innen: Mindestens ein gesetztes Komma beruht eher auf Intuition als auf Regelwissen. Prüfe vor allem Stellen, an denen kein vollständiger Nebensatz und kein klarer Zusatz vorliegt.";
-  }
-
-  if (wrongRules.length > 0) {
-    const wrongRule = wrongRules[0];
-    return `Hinweis für Expert*innen: Die Kommastellen stimmen bereits. Überdenke jetzt ${getGapLabel(
-      task,
-      wrongRule.gap
-    )} und entscheide, ob dort wirklich eine Aufzählung vorliegt oder ob die Stelle strukturell zu Zusatz oder Nebensatz gehört.`;
-  }
-
-  return "Hinweis für Expert*innen: Prüfe nicht nur, wo ein Komma steht, sondern mit welcher Begründung es dort stehen muss.";
-}
-
-function buildProHint(task) {
-  const missingCommas = getMissingCommas(task);
-  const extraCommas = getExtraCommas(task);
-  const wrongRules = getWrongRules(task);
-
-  if (missingCommas.length > 0) {
-    const missingComma = missingCommas[0];
-    const rule = getRuleById(missingComma.rule);
-    return `Hinweis für Profis: Dir fehlt eine strukturell wichtige Grenze ${getGapLabel(
-      task,
-      missingComma.gap
-    )}. Prüfe hier die Hierarchie der Regeln: ${
-      rule ? rule.label : missingComma.rule
-    } hat möglicherweise Vorrang vor einer bloßen Reihung.`;
-  }
-
-  if (extraCommas.length > 0) {
-    return "Hinweis für Profis: Mindestens ein Komma markiert keine echte Satzgrenze. Frage dich, ob du eine stilistische Sprechpause mit einer grammatischen Kommaregel verwechselt hast.";
-  }
-
-  if (wrongRules.length > 0) {
-    const wrongRule = wrongRules[0];
-    return `Hinweis für Profis: Die Setzung stimmt, aber die Begründung noch nicht vollständig. Analysiere ${getGapLabel(
-      task,
-      wrongRule.gap
-    )} aus der Satzhierarchie heraus: Welche Struktur wird hier tatsächlich vom Rest abgegrenzt?`;
-  }
-
-  return "Hinweis für Profis: Rekonstruiere den Satz hierarchisch: Hauptsatz, Einschub, Nebensatz, Reihung. Erst daraus ergibt sich die passende Regel.";
-}
-
-function buildHint(task) {
-  const levelId = currentLevel().id;
-
-  if (levelId === "beginner") {
-    return buildBeginnerHint(task);
-  }
-
-  if (levelId === "advanced") {
-    return buildAdvancedHint(task);
-  }
-
-  if (levelId === "expert") {
-    return buildExpertHint(task);
-  }
-
-  if (levelId === "pro") {
-    return buildProHint(task);
-  }
-
-  return "Hinweis: Gehe Wortgrenze für Wortgrenze durch und frage dich, ob dort ein Nebensatz endet, ein Zusatz eingeschoben ist oder eine echte Aufzählung vorliegt.";
-}
-
-function buildRuleExplanation(task, comma, index) {
-  const leftToken = task.tokens[comma.gap];
-  const rightToken = task.tokens[comma.gap + 1];
-  const nextWord = normalizeToken(rightToken);
-  const rule = getRuleById(comma.rule);
-
-  if (comma.rule === "subordinate") {
-    if (SUBORDINATE_STARTERS.has(nextWord)) {
-      return `
-        <article class="explanation-card">
-          <h4>Komma ${index + 1}: ${rule.label}</h4>
-          <p>Das Komma steht nach "${leftToken}" und vor "${rightToken}". Hier beginnt mit "${rightToken.replace(
-            /[.,;:!?]/g,
-            ""
-          )}" ein Nebensatz, der vom übergeordneten Satz abgetrennt werden muss.</p>
-          <p class="explanation-check">Selbstkontrolle: Suche das finite Verb des Nebensatzes und prüfe, wo der Hauptsatz unterbrochen wird.</p>
-        </article>
-      `;
-    }
-
-    return `
-      <article class="explanation-card">
-        <h4>Komma ${index + 1}: ${rule.label}</h4>
-        <p>Das Komma steht nach "${leftToken}" und vor "${rightToken}". An dieser Stelle endet ein Nebensatz; danach setzt der übergeordnete Satz wieder ein.</p>
-        <p class="explanation-check">Selbstkontrolle: Lies bis zum Ende des Nebensatzes und prüfe, wo der Hauptsatz grammatisch weitergeht.</p>
-      </article>
-    `;
-  }
-
-  if (comma.rule === "addition") {
-    return `
-      <article class="explanation-card">
-        <h4>Komma ${index + 1}: ${rule.label}</h4>
-        <p>Das Komma steht nach "${leftToken}" und vor "${rightToken}". Hier wird ein eingeschobener Zusatz vom Rest des Satzes abgegrenzt.</p>
-        <p class="explanation-check">Selbstkontrolle: Prüfe, ob der Satz ohne den Einschub grammatisch vollständig bleibt.</p>
-      </article>
-    `;
-  }
-
-  return `
-    <article class="explanation-card">
-      <h4>Komma ${index + 1}: ${rule.label}</h4>
-      <p>Das Komma steht nach "${leftToken}" und vor "${rightToken}". Es trennt hier zwei gleichrangige Glieder einer Aufzählung.</p>
-      <p class="explanation-check">Selbstkontrolle: Probeweise kannst du an dieser Stelle kurz "und" einsetzen. Klingt die Reihung weiterhin logisch, liegt meist eine Aufzählung vor.</p>
-    </article>
-  `;
-}
-
-function buildMistakeReview(task) {
-  const missingCommas = getMissingCommas(task);
-  const extraCommas = getExtraCommas(task);
-  const wrongRules = getWrongRules(task);
-  const items = [];
-
-  if (missingCommas.length > 0) {
-    items.push(
-      `<p><strong>Dir fehlten Kommata:</strong> ${missingCommas
-        .map((comma) => getGapLabel(task, comma.gap))
-        .join(", ")}.</p>`
-    );
-  }
-
-  if (extraCommas.length > 0) {
-    items.push(
-      `<p><strong>Diese Stellen waren zu viel:</strong> ${extraCommas
-        .map((gapIndex) => getGapLabel(task, gapIndex))
-        .join(", ")}.</p>`
-    );
-  }
-
-  if (wrongRules.length > 0) {
-    items.push(
-      `<p><strong>Diese Regeln musst du umstellen:</strong> ${wrongRules
-        .map((comma) => {
-          const rule = getRuleById(comma.rule);
-          return `${getGapLabel(task, comma.gap)} → ${
-            rule ? rule.label : comma.rule
-          }`;
-        })
-        .join("; ")}.</p>`
-    );
-  }
-
-  if (items.length === 0) {
-    return "";
-  }
-
-  return `
-    <div class="mistake-review">
-      <h4>Deine Selbstkorrektur</h4>
-      ${items.join("")}
-    </div>
-  `;
-}
-
-function areSameSelections(correctCommas) {
-  const selected = [...state.selectedGaps].sort((left, right) => left - right);
-  const correct = sortCommaData(correctCommas).map((comma) => comma.gap);
-
-  if (selected.length !== correct.length) {
-    return false;
-  }
-
-  return selected.every((gap, index) => gap === correct[index]);
-}
-
-function areRulesCorrect(correctCommas) {
-  return correctCommas.every(
-    (comma) => state.ruleSelections[comma.gap] === comma.rule
-  );
-}
-
-function countCorrectGapHits(correctCommas) {
-  const correctSet = new Set(correctCommas.map((comma) => comma.gap));
-  return [...state.selectedGaps].filter((gap) => correctSet.has(gap)).length;
-}
-
-function countCorrectRules(correctCommas) {
-  return correctCommas.filter(
-    (comma) =>
-      state.selectedGaps.has(comma.gap) &&
-      state.ruleSelections[comma.gap] === comma.rule
-  ).length;
-}
-
-function formatSentenceWithCommas(task) {
-  const commaLookup = new Map(task.commas.map((comma) => [comma.gap, comma.rule]));
-  const parts = [];
-
-  task.tokens.forEach((token, index) => {
-    parts.push(token);
-    if (commaLookup.has(index)) {
-      parts[parts.length - 1] += ",";
-    }
-  });
-
-  return parts.join(" ");
-}
-
-function revealModel(task) {
-  modelBoxEl.innerHTML = `
-    <p class="model-solution"><strong>Modelllösung:</strong> ${formatSentenceWithCommas(
-      task
-    )}</p>
-    ${buildMistakeReview(task)}
-    <p><strong>Überblick:</strong> ${task.explanation}</p>
-    <div class="explanation-list">
-      ${sortCommaData(task.commas)
-        .map((comma, index) => buildRuleExplanation(task, comma, index))
-        .join("")}
-    </div>
-    <div class="rule-tags">
-      ${sortCommaData(task.commas)
-        .map((comma, index) => {
-          const rule = RULES.find((entry) => entry.id === comma.rule);
-          return `<span>Komma ${index + 1}: ${rule ? rule.label : comma.rule}</span>`;
-        })
-        .join("")}
-    </div>
-  `;
-  modelBoxEl.classList.remove("hidden");
-}
-
-function lockTask() {
-  state.feedbackLocked = true;
-  checkBtn.disabled = true;
-  resetBtn.disabled = true;
-  nextBtn.classList.remove("hidden");
-}
-
-function markSolved(task) {
-  if (!state.solvedTaskIds.has(task.id)) {
-    state.solvedTaskIds.add(task.id);
-    saveProgress();
-  }
-}
-
-function handleSuccess(task) {
-  state.totalChecks += 1;
-  state.correctChecks += 1;
-  saveProgress();
-  markSolved(task);
-  setFeedback(
-    currentLevel().requiresRules
-      ? "Stark. Alle Kommas sitzen und die Regelzuordnung stimmt."
-      : "Stark. Alle Kommas sitzen an den richtigen Stellen.",
-    "success"
-  );
-  revealModel(task);
-  lockTask();
-}
-
-function handleFailure(task) {
-  state.totalChecks += 1;
-  saveProgress();
-  state.attempts += 1;
-
-  if (state.attempts < 2) {
-    setFeedback(buildHint(task), "info");
+function renderSolution() {
+  const exercise = currentExercise();
+  const evaluation = state.evaluation;
+
+  if (!exercise || !evaluation || !state.locked) {
+    solutionBoxEl.classList.add("hidden");
+    solutionBoxEl.innerHTML = "";
     return;
   }
 
-  setFeedback(
-    "Noch nicht korrekt. Jetzt wird die Musterlösung mit einer ausführlichen Regel-Erklärung eingeblendet, damit du deine Lösung Schritt für Schritt selbst korrigieren kannst.",
-    "info"
-  );
-  revealModel(task);
-  lockTask();
+  const alternativeSolutions = getAlternativeSolutions(exercise);
+  const mistakeTags = [];
+
+  evaluation.missing.forEach((index) => {
+    mistakeTags.push(`Fehlte ${getBoundaryLabel(exercise, index)}`);
+  });
+  evaluation.extra.forEach((index) => {
+    mistakeTags.push(`Zu viel ${getBoundaryLabel(exercise, index)}`);
+  });
+  evaluation.wrongRules.forEach((index) => {
+    mistakeTags.push(`Falsche Regel ${exercise.reasons[index]} ${getBoundaryLabel(exercise, index)}`);
+  });
+
+  const explanationItems = exercise.reasons
+    .map((code, index) => {
+      if (!code || exercise.slots[index] !== ",") {
+        return "";
+      }
+
+      return `<li><strong>${code}</strong> ${getBoundaryLabel(exercise, index)}: ${
+        state.rules[code] || "Duden-Regel"
+      }</li>`;
+    })
+    .filter(Boolean)
+    .join("");
+
+  solutionBoxEl.innerHTML = `
+    <div class="solution-header">
+      <div>
+        <p class="eyebrow">Musterloesung</p>
+        <h3>${formatPrimarySolution(exercise)}</h3>
+      </div>
+    </div>
+    ${
+      mistakeTags.length > 0
+        ? `<div class="mistake-tags">${mistakeTags
+            .map((tag) => `<span class="mistake-tag">${tag}</span>`)
+            .join("")}</div>`
+        : ""
+    }
+    ${
+      alternativeSolutions.length > 0
+        ? `<div class="solution-callout"><strong>Auch akzeptiert:</strong> ${alternativeSolutions.join(
+            " | "
+          )}</div>`
+        : ""
+    }
+    ${
+      exercise.note
+        ? `<div class="note-box"><strong>Hinweis:</strong> ${exercise.note}</div>`
+        : ""
+    }
+    ${
+      explanationItems
+        ? `<div class="solution-list"><h4>Regelbegruendung</h4><ul>${explanationItems}</ul></div>`
+        : ""
+    }
+    <div class="solution-chip-row">
+      <span class="solution-chip">ID ${exercise.id}</span>
+      <span class="solution-chip">Niveau ${state.currentLevelId}</span>
+      <span class="solution-chip">${
+        currentNeedsWhy() ? "Mit Regelzuordnung" : "Nur Kommasetzung"
+      }</span>
+    </div>
+  `;
+
+  solutionBoxEl.classList.remove("hidden");
 }
 
-function nextTask() {
-  const level = currentLevel();
-  if (state.currentTaskIndex < level.tasks.length - 1) {
-    state.currentTaskIndex += 1;
-  } else {
-    state.currentTaskIndex = 0;
+function render() {
+  renderLevelCards();
+  renderHeader();
+  renderSentence();
+  renderRulePanel();
+  renderSolution();
+}
+
+function toggleSlot(index) {
+  if (state.locked) {
+    return;
   }
 
-  resetTaskState();
+  if (state.selectedSlots.has(index)) {
+    state.selectedSlots.delete(index);
+    delete state.ruleSelections[index];
+  } else {
+    state.selectedSlots.add(index);
+  }
+
+  renderSentence();
+  renderRulePanel();
+}
+
+function clearSelection() {
+  if (state.locked) {
+    return;
+  }
+
+  state.selectedSlots = new Set();
+  state.ruleSelections = {};
+  state.evaluation = null;
+  solutionBoxEl.classList.add("hidden");
+  solutionBoxEl.innerHTML = "";
+  renderSentence();
+  renderRulePanel();
+  setFeedback("Auswahl geloescht. Du kannst den Satz jetzt neu analysieren.", "info");
+}
+
+function handleSuccess() {
+  recordAttempt(true);
+  state.evaluation = evaluateCurrentExercise();
+  setFeedback(
+    currentNeedsWhy()
+      ? "Stark. Kommasetzung und Regelzuordnung stimmen."
+      : "Stark. Die Kommasetzung stimmt.",
+    "success"
+  );
+  lockTask();
   render();
 }
 
-function checkTask() {
-  const task = currentTask();
-  const needsRules = currentLevel().requiresRules;
-  const correctGapSelection = areSameSelections(task.commas);
+function handleFailure() {
+  const exercise = currentExercise();
+  recordAttempt(false);
+  state.attemptsOnTask += 1;
+  state.evaluation = evaluateCurrentExercise();
 
-  if (state.selectedGaps.size === 0) {
-    setFeedback("Setze zuerst mindestens ein Komma.", "error");
+  if (state.attemptsOnTask < 2) {
+    setFeedback(buildHint(exercise, state.evaluation), "error");
+    solutionBoxEl.classList.add("hidden");
+    solutionBoxEl.innerHTML = "";
     return;
   }
 
-  if (needsRules) {
-    const everySelectedGapHasRule = [...state.selectedGaps].every(
-      (gap) => state.ruleSelections[gap]
-    );
-    if (!everySelectedGapHasRule) {
+  setFeedback(
+    "Noch nicht korrekt. Die Musterloesung ist jetzt sichtbar, damit du die Satzstruktur gezielt nacharbeiten kannst.",
+    "error"
+  );
+  lockTask();
+  render();
+}
+
+function checkCurrentTask() {
+  const exercise = currentExercise();
+
+  if (!exercise) {
+    return;
+  }
+
+  if (currentNeedsWhy()) {
+    const selected = [...state.selectedSlots];
+    const unassigned = selected.filter((index) => !state.ruleSelections[index]);
+    if (unassigned.length > 0) {
       setFeedback("Ordne jedem gesetzten Komma zuerst eine Regel zu.", "error");
       return;
     }
   }
 
-  if (correctGapSelection && (!needsRules || areRulesCorrect(task.commas))) {
-    handleSuccess(task);
-    updateHeader();
-    updateProgressSummary();
-    renderLevelCards();
+  const evaluation = evaluateCurrentExercise();
+  state.evaluation = evaluation;
+
+  if (evaluation.isCorrect) {
+    handleSuccess();
     return;
   }
 
-  handleFailure(task);
-  updateHeader();
+  handleFailure();
 }
 
-function clearSelection() {
-  if (state.feedbackLocked) {
-    return;
+function nextTask() {
+  if (state.currentIndex < state.round.length - 1) {
+    state.currentIndex += 1;
+  } else {
+    state.round = buildRound(state.currentLevelId);
+    state.currentIndex = 0;
   }
 
-  state.selectedGaps = new Set();
-  state.ruleSelections = {};
-  buildSentenceArea();
-  renderRulePanel();
-  setFeedback("Auswahl gelöscht. Du kannst den Satz neu analysieren.", "info");
-  hideModel();
+  resetTaskState();
+  render();
+  setFeedback(
+    "Naechste Aufgabe geladen. Lies den Satz einmal komplett, bevor du einzelne Stellen anklickst.",
+    "info"
+  );
 }
 
-function render() {
-  updateHeader();
-  updateProgressSummary();
-  renderLevelCards();
-  buildSentenceArea();
-  renderRulePanel();
+function handleOptionChange() {
+  state.options.requireWhy = requireWhyEl.checked;
+  state.options.chMode = chModeEl.checked;
+  saveOptions();
+  resetTaskState();
+  render();
+  setFeedback(
+    currentNeedsWhy()
+      ? "Regelbegruendung ist aktiv. Jede gesetzte Stelle braucht jetzt einen Duden-Code."
+      : "Modus aktualisiert. Du trainierst jetzt nur die Kommasetzung.",
+    "info"
+  );
 }
 
-checkBtn.addEventListener("click", checkTask);
+function initialiseData() {
+  const rawRules = window.KOMMAPROFI_RULES;
+  const rawExercises = window.KOMMAPROFI_EXERCISES;
+
+  if (!rawRules || !rawExercises) {
+    throw new Error("Die eingebetteten Uebungsdaten konnten nicht gefunden werden.");
+  }
+
+  state.rules = rawRules;
+  state.exercises = rawExercises.map(compileExercise);
+  state.progress = loadProgress();
+  loadOptions();
+
+  requireWhyEl.checked = state.options.requireWhy;
+  chModeEl.checked = state.options.chMode;
+  overallTotalEl.textContent = `von ${state.exercises.length}`;
+
+  renderRulebook();
+  loadingBoxEl.classList.add("hidden");
+  trainerContentEl.classList.remove("hidden");
+  startRound();
+}
+
+checkBtn.addEventListener("click", checkCurrentTask);
 resetBtn.addEventListener("click", clearSelection);
 nextBtn.addEventListener("click", nextTask);
+newRoundBtn.addEventListener("click", startRound);
+requireWhyEl.addEventListener("change", handleOptionChange);
+chModeEl.addEventListener("change", handleOptionChange);
 
-loadProgress();
-resetTaskState();
-render();
+try {
+  setLoading("Uebungen werden vorbereitet ...");
+  initialiseData();
+} catch (error) {
+  console.error(error);
+  loadingBoxEl.classList.remove("hidden");
+  trainerContentEl.classList.add("hidden");
+  setLoading(
+    "Die App konnte nicht gestartet werden. Bitte pruefe, ob alle Projektdateien vollstaendig geladen wurden."
+  );
+}

@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kommatrainer</title>
+    <title>Kommaprofi</title>
     <meta
       name="description"
-      content="Interaktiver Kommatrainer mit vier Schwierigkeitsgraden, Klickstellen zwischen allen Wörtern und Regelzuordnung für anspruchsvolle Aufgaben."
+      content="Robuster Kommatrainer mit 120 kuratierten Uebungen, Regelzuordnung, Schweiz-Option und speicherbarem Lernfortschritt."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -16,159 +16,163 @@
     <main class="app-shell">
       <section class="hero panel">
         <div class="hero-copy">
-          <p class="eyebrow">Duden-basiertes Training</p>
-          <h1>Kommatrainer</h1>
+          <p class="eyebrow">Kuratiertes Duden-Training</p>
+          <h1>Kommaprofi</h1>
           <p class="lead">
-            Vier Niveaus, echte Satzlogik und keine verräterischen Lücken:
-            Alle Wortgrenzen sind anklickbar, die Regeln werden erst nach der
-            Auswahl geprüft.
+            Ein Kommatrainer, der lokal direkt im Browser laeuft, alle
+            Wortgrenzen anklickbar macht und vom Einstieg bis zu komplexen
+            Grenzfaellen mit Regelbegruendung fuehrt.
           </p>
         </div>
 
-        <div class="hero-stats" aria-label="Übersicht">
+        <div class="hero-badges" aria-label="Projektmerkmale">
+          <article>
+            <span class="stat-label">Uebungen</span>
+            <strong>120</strong>
+          </article>
           <article>
             <span class="stat-label">Niveaus</span>
             <strong>4</strong>
           </article>
           <article>
-            <span class="stat-label">Aufgabentypen</span>
-            <strong>2</strong>
-          </article>
-          <article>
-            <span class="stat-label">Regelbasis</span>
-            <strong>Duden</strong>
+            <span class="stat-label">Modus</span>
+            <strong>Offline</strong>
           </article>
         </div>
       </section>
 
-      <section class="image-showcase panel" aria-label="Titelbild">
-        <div class="image-showcase-copy">
-          <p class="eyebrow">Merksatz</p>
-          <h2>Komma setzen, nicht Koma saufen</h2>
-          <p>
-            Das Bild steht jetzt bewusst sichtbar unter dem Einstieg. Es soll
-            als humorvoller Aufhänger dienen und nicht nur unscheinbar im
-            Hintergrund verschwinden.
-          </p>
-        </div>
-        <div class="image-frame">
-          <img
-            src="assets/Kommasetzen.jpg"
-            alt="Illustration zum Kommasetzen mit dem Spruch: Komma setzen, nicht Koma saufen"
-          />
-        </div>
-      </section>
-
-      <section class="grid-layout">
+      <section class="layout">
         <aside class="sidebar">
           <section class="panel">
             <div class="section-head">
-              <h2>Niveaus</h2>
-              <p id="progress-summary">0 von 19 Aufgaben gelöst</p>
+              <div>
+                <p class="eyebrow">Niveaus</p>
+                <h2>Dein Trainingspfad</h2>
+              </div>
+              <p id="overall-progress-copy" class="section-copy"></p>
             </div>
             <div id="level-grid" class="level-grid" aria-label="Niveaus"></div>
           </section>
 
-          <section class="panel theory-panel">
+          <section class="panel settings-panel">
             <div class="section-head">
-              <h2>Theorieblatt</h2>
-              <p>Verdichtet aus dem Duden-Blatt.</p>
+              <div>
+                <p class="eyebrow">Optionen</p>
+                <h2>Feinsteuerung</h2>
+              </div>
             </div>
 
-            <ul class="theory-list">
-              <li>
-                <strong>Reihungen:</strong> Zwischen Gliedern einer Aufzählung
-                steht ein Komma, aber nicht vor einfachem <em>und</em> oder
-                <em>oder</em>.
-              </li>
-              <li>
-                <strong>Nachgestellte Zusätze:</strong> Einschübe wie
-                Appositionen werden am Anfang und am Ende mit Kommas
-                abgegrenzt.
-              </li>
-              <li>
-                <strong>Nebensätze:</strong> Nebensätze werden vom
-                übergeordneten Satz mit Kommas getrennt, auch wenn sie
-                eingeschoben sind.
-              </li>
-              <li>
-                <strong>Vorrang:</strong> Wenn Zusatz oder Nebensatz in einer
-                Reihung steckt, ist die Abgrenzung wichtiger als die
-                Aufzählungsregel.
-              </li>
-            </ul>
+            <label class="toggle">
+              <input id="require-why" type="checkbox" />
+              <span>Regelbegruendung auch in leichteren Niveaus abfragen</span>
+            </label>
+
+            <label class="toggle">
+              <input id="ch-mode" type="checkbox" />
+              <span>Schweiz-Option fuer Briefanreden ohne Komma zulassen</span>
+            </label>
+
+            <p class="settings-note">
+              In <strong>Profi</strong> und <strong>Expert</strong> wird die
+              Regelzuordnung immer eingeblendet.
+            </p>
           </section>
 
-          <section class="panel anti-guess-panel">
+          <section class="panel rulebook-panel">
             <div class="section-head">
-              <h2>Gegen Raten</h2>
-              <p>Die Darstellung verrät die Lösung nicht.</p>
+              <div>
+                <p class="eyebrow">Regelwerk</p>
+                <h2>Duden-Codes im Ueberblick</h2>
+              </div>
             </div>
-
-            <ul class="anti-guess-list">
-              <li>Jede Wortgrenze sieht gleich aus und ist gleich anklickbar.</li>
-              <li>Es gibt keine vorbereiteten Lücken an den richtigen Stellen.</li>
-              <li>Regeloptionen werden pro Aufgabe neu gemischt.</li>
-              <li>Die Modelllösung erscheint erst nach der Abgabe.</li>
-            </ul>
+            <div id="rulebook-list" class="rulebook-list"></div>
           </section>
         </aside>
 
         <section class="trainer panel">
           <div class="trainer-head">
             <div>
-              <p class="eyebrow" id="current-level-label">Anfänger</p>
-              <h2 id="task-title">Aufgabe</h2>
+              <p id="level-label" class="eyebrow">Starter*in</p>
+              <h2 id="task-title">Trainer wird vorbereitet</h2>
             </div>
-            <div class="score-chip" id="score-chip">Trefferquote 0%</div>
+            <button id="new-round-btn" class="ghost-btn" type="button">
+              Neue Runde
+            </button>
           </div>
 
-          <div class="task-meta">
-            <p id="task-subtitle" class="task-subtitle"></p>
-            <p id="task-instruction" class="task-instruction"></p>
+          <div class="stats-grid" aria-label="Lernstand">
+            <article class="stat-card">
+              <span class="stat-label">Gesamt geloest</span>
+              <strong id="overall-solved">0</strong>
+              <small id="overall-total">von 120</small>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Trefferquote</span>
+              <strong id="accuracy-value">0%</strong>
+              <small id="accuracy-copy">Noch keine Pruefung</small>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Aktuelles Niveau</span>
+              <strong id="level-progress">0/30</strong>
+              <small id="level-progress-copy">Noch keine Aufgabe geloest</small>
+            </article>
+            <article class="stat-card">
+              <span class="stat-label">Runde</span>
+              <strong id="round-progress">0/0</strong>
+              <small id="round-progress-copy">Noch nicht gestartet</small>
+            </article>
           </div>
 
-          <section class="sentence-panel">
-            <div
-              id="sentence-area"
-              class="sentence-area"
-              aria-live="polite"
-            ></div>
-          </section>
+          <div id="loading-box" class="status-box">
+            Uebungen werden geladen ...
+          </div>
 
-          <section id="rule-panel" class="rule-panel hidden">
-            <div class="section-head">
-              <h3>Regeln zuordnen</h3>
-              <p>
-                Weise jedem gesetzten Komma die passende Duden-Regel zu.
+          <div id="trainer-content" class="trainer-content hidden">
+            <div class="task-meta">
+              <p id="task-subtitle" class="task-subtitle"></p>
+              <p id="task-instruction" class="task-instruction"></p>
+            </div>
+
+            <section class="sentence-panel">
+              <div id="sentence-area" class="sentence-area" aria-live="polite"></div>
+            </section>
+
+            <section id="rule-panel" class="rule-panel hidden">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">Regelbegruendung</p>
+                  <h3>Ordne jede gesetzte Stelle zu</h3>
+                </div>
+              </div>
+              <div id="rule-area" class="rule-area"></div>
+            </section>
+
+            <div class="controls">
+              <button id="check-btn" class="primary-btn" type="button">
+                Pruefen
+              </button>
+              <button id="reset-btn" class="ghost-btn" type="button">
+                Auswahl loeschen
+              </button>
+              <button id="next-btn" class="secondary-btn hidden" type="button">
+                Naechste Aufgabe
+              </button>
+            </div>
+
+            <section id="feedback-box" class="feedback-box info" aria-live="polite">
+              <p id="feedback-text" class="feedback-text">
+                Waehle die passende Wortgrenze und setze dort ein Komma.
               </p>
-            </div>
-            <div id="rule-area" class="rule-area"></div>
-          </section>
+            </section>
 
-          <div class="controls">
-            <button id="check-btn" class="primary-btn" type="button">
-              Prüfen
-            </button>
-            <button id="reset-btn" class="ghost-btn" type="button">
-              Auswahl löschen
-            </button>
-            <button id="next-btn" class="secondary-btn hidden" type="button">
-              Nächste Aufgabe
-            </button>
+            <section id="solution-box" class="solution-box hidden"></section>
           </div>
-
-          <section id="feedback-box" class="feedback-box" aria-live="polite">
-            <p id="feedback-text" class="feedback-text">
-              Setze die fehlenden Kommas, indem du die Punkte zwischen den
-              Wörtern anklickst.
-            </p>
-            <div id="model-box" class="model-box hidden"></div>
-          </section>
         </section>
       </section>
     </main>
 
+    <script src="data/rules.js"></script>
+    <script src="data/exercises.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

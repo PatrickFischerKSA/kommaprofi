@@ -1,20 +1,20 @@
 # GitHub-Metadaten
 
 ## Repository-Name
-`kommatrainer`
+`kommaprofi`
 
 ## Kurzbeschreibung (Description)
-Interaktiver Kommatrainer mit vier Schwierigkeitsgraden, Duden-basierten Regeln, Klickstellen zwischen allen Wörtern und Regelzuordnung für anspruchsvolle Aufgaben.
+Robuster Kommatrainer fuer den Deutschunterricht mit 120 kuratierten Uebungen, Regelzuordnung, Schweiz-Option und lokal speicherbarem Fortschritt.
 
-## About (längere Variante)
-Ein statischer Webtrainer für den Deutschunterricht: Lernende setzen Kommas direkt zwischen allen Wortgrenzen und arbeiten sich von einfachen Satzmustern bis zu langen Mischfällen mit Zusatz- und Nebensatzlogik vor. In den schweren Niveaus müssen sie zusätzlich die passende Regel benennen. Die Darstellung ist bewusst so gebaut, dass man die Lösung nicht an vorbereiteten Lücken oder am Layout erraten kann.
+## About (laengere Variante)
+Kommaprofi ist eine statische Lernapp fuer die deutsche Kommasetzung. Lernende klicken an jeder Wortgrenze, setzen selbststaendig Kommas, begruenden schwierige Faelle mit Duden-Codes und arbeiten sich durch vier aufeinander aufbauende Niveaus. Die App funktioniert ohne Build-Tool direkt im Browser und eignet sich auch fuer GitHub Pages.
 
 ## Topics (Vorschlag)
 - deutschunterricht
 - kommasetzung
 - grammatik
 - duden
-- lernapp
+- kommatrainer
 - bildung
 - edtech
 - html
@@ -22,4 +22,4 @@ Ein statischer Webtrainer für den Deutschunterricht: Lernende setzen Kommas dir
 - javascript
 
 ## Sichtbarkeit
-Für Unterrichts- und Lernzwecke in der Regel: `Public`
+Fuer Unterrichts- und Lernzwecke in der Regel: `Public`
