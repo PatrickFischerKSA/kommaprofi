@@ -1,1 +1,1 @@
-Lehrkraft-Notiz: Inline V2 mit unsichtbaren Klickzonen, CH-Option (D132), Debug (?debug=1).
+Inline V3: stylisches Design, Reset-Button, Button-Klickzonen, CH-Option (D132), Debug (?debug=1).
