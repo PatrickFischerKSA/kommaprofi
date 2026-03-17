@@ -4,10 +4,10 @@
 `kommaprofi`
 
 ## Kurzbeschreibung (Description)
-Robuster Kommatrainer fuer den Deutschunterricht mit 120 kuratierten Uebungen, Regelzuordnung, Schweiz-Option und lokal speicherbarem Fortschritt.
+Robuster Kommatrainer für den Deutschunterricht mit 120 kuratierten Übungen, Regelzuordnung, Schweiz-Option und lokal speicherbarem Fortschritt.
 
-## About (laengere Variante)
-Kommaprofi ist eine statische Lernapp fuer die deutsche Kommasetzung. Lernende klicken an jeder Wortgrenze, setzen selbststaendig Kommas, begruenden schwierige Faelle mit Duden-Codes und arbeiten sich durch vier aufeinander aufbauende Niveaus. Die App funktioniert ohne Build-Tool direkt im Browser und eignet sich auch fuer GitHub Pages.
+## About (längere Variante)
+Kommaprofi ist eine statische Lernapp für die deutsche Kommasetzung. Lernende klicken an jeder Wortgrenze, setzen selbstständig Kommas, begründen schwierige Fälle mit Duden-Codes und arbeiten sich durch vier aufeinander aufbauende Niveaus. Die App funktioniert ohne Build-Tool direkt im Browser und eignet sich auch für GitHub Pages.
 
 ## Topics (Vorschlag)
 - deutschunterricht
@@ -22,4 +22,4 @@ Kommaprofi ist eine statische Lernapp fuer die deutsche Kommasetzung. Lernende k
 - javascript
 
 ## Sichtbarkeit
-Fuer Unterrichts- und Lernzwecke in der Regel: `Public`
+Für Unterrichts- und Lernzwecke in der Regel: `Public`

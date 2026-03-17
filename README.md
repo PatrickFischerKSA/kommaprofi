@@ -1,16 +1,16 @@
 # Kommaprofi
 
-Kommaprofi ist ein browserbasierter Kommatrainer fuer den Deutschunterricht. Die App laeuft ohne Build-Schritt direkt als statische Seite, speichert Lernfortschritt lokal im Browser und arbeitet mit 120 kuratierten Uebungen ueber vier Niveaus.
+Kommaprofi ist ein browserbasierter Kommatrainer für den Deutschunterricht. Die App läuft ohne Build-Schritt direkt als statische Seite, speichert Lernfortschritt lokal im Browser und arbeitet mit 120 kuratierten Übungen über vier Niveaus.
 
 ## Was jetzt funktioniert
 
 - Vier Niveaus mit jeweils 30 Aufgaben: `Starter`, `Azubi`, `Profi`, `Expert`
 - Alle Wortgrenzen sind anklickbar, auch bei Aufgaben ohne Komma
 - Regelzuordnung per Duden-Code in den schweren Niveaus oder optional auch in leichten
-- Lokaler Fortschritt mit geloesten Aufgaben, Trefferquote und Level-Statistik
-- Schweiz-Option fuer Briefanreden ohne Komma
-- Direkte Nutzung ueber `index.html`, weil die Uebungsdaten als JavaScript mitgeliefert werden
-- GitHub-Pages-Deployment ueber Workflow auf `main`
+- Lokaler Fortschritt mit gelösten Aufgaben, Trefferquote und Level-Statistik
+- Schweiz-Option für Briefanreden ohne Komma
+- Direkte Nutzung über `index.html`, weil die Übungsdaten als JavaScript mitgeliefert werden
+- GitHub-Pages-Deployment über Workflow auf `main`
 
 ## Projektstruktur
 
@@ -20,17 +20,17 @@ Kommaprofi ist ein browserbasierter Kommatrainer fuer den Deutschunterricht. Die
 - `data/rules.js` - eingebettete Duden-Regeln
 - `data/exercises.js` - eingebetteter kuratierter Aufgabenpool
 - `data/rules.json` - rohe Regeldaten aus der gelieferten Quelle
-- `data/exercises.json` - rohe Uebungsdaten aus der gelieferten Quelle
-- `.github/workflows/pages.yml` - Deployment fuer GitHub Pages
+- `data/exercises.json` - rohe Übungsdaten aus der gelieferten Quelle
+- `.github/workflows/pages.yml` - Deployment für GitHub Pages
 - `assets/Kommasetzen.jpg` - Hintergrundmotiv
 - `assets/duden.pdf` - optionales Referenzmaterial
 
 ## Lokal starten
 
-1. `index.html` direkt im Browser oeffnen
-2. Oder das Repo statisch ausliefern, zum Beispiel ueber GitHub Pages
+1. `index.html` direkt im Browser öffnen
+2. Oder das Repo statisch ausliefern, zum Beispiel über GitHub Pages
 
 ## Inhaltliche Hinweise
 
-- Die Datenbasis stammt aus dem gelieferten kuratierten ZIP und wurde in eine robustere Offline-App ueberfuehrt.
-- Fehlende Regelcodes `D108` und `D109` wurden ergaenzt, damit alle Aufgaben saubere Beschriftungen haben.
+- Die Datenbasis stammt aus dem gelieferten kuratierten ZIP und wurde in eine robustere Offline-App überführt.
+- Fehlende Regelcodes `D108` und `D109` wurden ergänzt, damit alle Aufgaben saubere Beschriftungen haben.

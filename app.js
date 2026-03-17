@@ -4,21 +4,21 @@ const LEVELS = [
     name: "Starter*in",
     tag: "Basis",
     blurb:
-      "Kurze und klare Uebungen: einfache Aufzaehlungen, Zusatze und erste sichere Nicht-Komma-Faelle.",
+      "Kurze und klare Übungen: einfache Aufzählungen, Zusätze und erste sichere Nicht-Komma-Fälle.",
   },
   {
     id: "Azubi",
     name: "Azubi",
     tag: "Aufbau",
     blurb:
-      "Mehr Satzgefuehl: Nebensaetze, Infinitivgruppen und erste Strukturentscheidungen ohne Layout-Hilfe.",
+      "Mehr Satzgefühl: Nebensätze, Infinitivgruppen und erste Strukturentscheidungen ohne Layout-Hilfe.",
   },
   {
     id: "Profi",
     name: "Profi",
     tag: "Feinheiten",
     blurb:
-      "Grenzfaelle, freigestellte Kommas und Duden-Sonderregeln mit sauberer Begruendung.",
+      "Grenzfälle, freigestellte Kommas und Duden-Sonderregeln mit sauberer Begründung.",
     forceWhy: true,
   },
   {
@@ -26,7 +26,7 @@ const LEVELS = [
     name: "Expert*in",
     tag: "Komplex",
     blurb:
-      "Mehrteilige Satzstrukturen, Einschuebe und regelbasierte Entscheidungen unter Druck.",
+      "Mehrteilige Satzstrukturen, Einschübe und regelbasierte Entscheidungen unter Druck.",
     forceWhy: true,
   },
 ];
@@ -326,7 +326,7 @@ function startRound() {
   resetTaskState();
   render();
   setFeedback(
-    "Klicke zwischen den Woertern auf die Punkte. Auch Aufgaben ohne Komma kannst du direkt pruefen.",
+    "Klicke zwischen den Wörtern auf die Punkte. Auch Aufgaben ohne Komma kannst du direkt prüfen.",
     "info"
   );
 }
@@ -471,7 +471,7 @@ function buildHint(exercise, evaluation) {
     return `Dir fehlt ein Komma ${getBoundaryLabel(
       exercise,
       index
-    )}. Pruefe dort besonders die Struktur "${ruleCode}: ${ruleLabel}".`;
+    )}. Prüfe dort besonders die Struktur "${ruleCode}: ${ruleLabel}".`;
   }
 
   if (evaluation.extra.length > 0) {
@@ -494,7 +494,7 @@ function buildHint(exercise, evaluation) {
     )} braucht die Regel ${expectedRule}: ${state.rules[expectedRule] || "Duden-Regel"}.`;
   }
 
-  return "Analysiere den Satz noch einmal von der Satzstruktur her: Was gehoert zusammen, was ist Einschub, was ist Nebensatz?";
+  return "Analysiere den Satz noch einmal von der Satzstruktur her: Was gehört zusammen, was ist Einschub, was ist Nebensatz?";
 }
 
 function lockTask() {
@@ -551,7 +551,7 @@ function renderLevelCards() {
       </div>
       <p>${level.blurb}</p>
       <div class="level-progress-line">
-        <span>${solved}/${total} geloest</span>
+        <span>${solved}/${total} gelöst</span>
         <div class="progress-bar" aria-hidden="true">
           <span style="width: ${ratio}%"></span>
         </div>
@@ -561,7 +561,7 @@ function renderLevelCards() {
     levelGridEl.appendChild(button);
   });
 
-  overallProgressCopyEl.textContent = `${state.progress.solvedIds.length} von ${getTotalExerciseCount()} Aufgaben bereits geloest`;
+  overallProgressCopyEl.textContent = `${state.progress.solvedIds.length} von ${getTotalExerciseCount()} Aufgaben bereits gelöst`;
 }
 
 function renderRulebook() {
@@ -594,25 +594,25 @@ function renderHeader() {
   levelLabelEl.textContent = meta?.name || state.currentLevelId;
   taskTitleEl.textContent = exercise
     ? `Aufgabe ${state.currentIndex + 1} von ${state.round.length}`
-    : "Keine Aufgabe verfuegbar";
+    : "Keine Aufgabe verfügbar";
   taskSubtitleEl.textContent = exercise
-    ? `${exercise.id} im Niveau ${meta?.name}. Diese Runde bevorzugt neue Aufgaben, wiederholt aber bei Bedarf bereits geloeste.`
-    : "Es konnte keine Uebung fuer dieses Niveau geladen werden.";
+    ? `${exercise.id} im Niveau ${meta?.name}. Diese Runde bevorzugt neue Aufgaben, wiederholt aber bei Bedarf bereits gelöste.`
+    : "Es konnte keine Übung für dieses Niveau geladen werden.";
   taskInstructionEl.textContent = currentNeedsWhy()
     ? "Setze die Kommas und ordne jeder gesetzten Stelle den passenden Duden-Code zu."
-    : "Setze alle noetigen Kommas. Auch kein Komma kann die richtige Loesung sein.";
+    : "Setze alle nötigen Kommas. Auch kein Komma kann die richtige Lösung sein.";
 
   overallSolvedEl.textContent = String(state.progress.solvedIds.length);
   overallTotalEl.textContent = `von ${getTotalExerciseCount()}`;
   accuracyValueEl.textContent = `${accuracy}%`;
   accuracyCopyEl.textContent =
     state.progress.attempts === 0
-      ? "Noch keine Pruefung"
+      ? "Noch keine Prüfung"
       : `${state.progress.successes} von ${state.progress.attempts} Versuchen korrekt`;
   levelProgressEl.textContent = `${solvedInLevel}/${totalInLevel}`;
   levelProgressCopyEl.textContent =
     solvedInLevel === 0
-      ? "Noch keine Aufgabe geloest"
+      ? "Noch keine Aufgabe gelöst"
       : `${Math.round((solvedInLevel / totalInLevel) * 100)}% des Niveaus geschafft`;
   roundProgressEl.textContent = exercise
     ? `${state.currentIndex + 1}/${state.round.length}`
@@ -693,7 +693,7 @@ function renderRulePanel() {
 
     const placeholder = document.createElement("option");
     placeholder.value = "";
-    placeholder.textContent = "Regel waehlen";
+    placeholder.textContent = "Regel wählen";
     select.appendChild(placeholder);
 
     sortRuleCodes(Object.keys(state.rules)).forEach((code) => {
@@ -753,7 +753,7 @@ function renderSolution() {
   solutionBoxEl.innerHTML = `
     <div class="solution-header">
       <div>
-        <p class="eyebrow">Musterloesung</p>
+        <p class="eyebrow">Musterlösung</p>
         <h3>${formatPrimarySolution(exercise)}</h3>
       </div>
     </div>
@@ -778,7 +778,7 @@ function renderSolution() {
     }
     ${
       explanationItems
-        ? `<div class="solution-list"><h4>Regelbegruendung</h4><ul>${explanationItems}</ul></div>`
+        ? `<div class="solution-list"><h4>Regelbegründung</h4><ul>${explanationItems}</ul></div>`
         : ""
     }
     <div class="solution-chip-row">
@@ -829,7 +829,7 @@ function clearSelection() {
   solutionBoxEl.innerHTML = "";
   renderSentence();
   renderRulePanel();
-  setFeedback("Auswahl geloescht. Du kannst den Satz jetzt neu analysieren.", "info");
+  setFeedback("Auswahl gelöscht. Du kannst den Satz jetzt neu analysieren.", "info");
 }
 
 function handleSuccess() {
@@ -859,7 +859,7 @@ function handleFailure() {
   }
 
   setFeedback(
-    "Noch nicht korrekt. Die Musterloesung ist jetzt sichtbar, damit du die Satzstruktur gezielt nacharbeiten kannst.",
+    "Noch nicht korrekt. Die Musterlösung ist jetzt sichtbar, damit du die Satzstruktur gezielt nacharbeiten kannst.",
     "error"
   );
   lockTask();
@@ -904,7 +904,7 @@ function nextTask() {
   resetTaskState();
   render();
   setFeedback(
-    "Naechste Aufgabe geladen. Lies den Satz einmal komplett, bevor du einzelne Stellen anklickst.",
+    "Nächste Aufgabe geladen. Lies den Satz einmal komplett, bevor du einzelne Stellen anklickst.",
     "info"
   );
 }
@@ -917,7 +917,7 @@ function handleOptionChange() {
   render();
   setFeedback(
     currentNeedsWhy()
-      ? "Regelbegruendung ist aktiv. Jede gesetzte Stelle braucht jetzt einen Duden-Code."
+      ? "Regelbegründung ist aktiv. Jede gesetzte Stelle braucht jetzt einen Duden-Code."
       : "Modus aktualisiert. Du trainierst jetzt nur die Kommasetzung.",
     "info"
   );
@@ -928,7 +928,7 @@ function initialiseData() {
   const rawExercises = window.KOMMAPROFI_EXERCISES;
 
   if (!rawRules || !rawExercises) {
-    throw new Error("Die eingebetteten Uebungsdaten konnten nicht gefunden werden.");
+    throw new Error("Die eingebetteten Übungsdaten konnten nicht gefunden werden.");
   }
 
   state.rules = rawRules;
@@ -954,13 +954,13 @@ requireWhyEl.addEventListener("change", handleOptionChange);
 chModeEl.addEventListener("change", handleOptionChange);
 
 try {
-  setLoading("Uebungen werden vorbereitet ...");
+  setLoading("Übungen werden vorbereitet ...");
   initialiseData();
 } catch (error) {
   console.error(error);
   loadingBoxEl.classList.remove("hidden");
   trainerContentEl.classList.add("hidden");
   setLoading(
-    "Die App konnte nicht gestartet werden. Bitte pruefe, ob alle Projektdateien vollstaendig geladen wurden."
+    "Die App konnte nicht gestartet werden. Bitte prüfe, ob alle Projektdateien vollständig geladen wurden."
   );
 }

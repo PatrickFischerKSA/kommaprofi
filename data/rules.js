@@ -22,6 +22,6 @@ window.KOMMAPROFI_RULES = {
   "D127": "Mehrteilige Fügung – Komma möglich",
   "D129-132": "Hervorhebungen, Ausrufe, Anreden (allg.)",
   "D132": "Anrede (Brief/Anrede)",
-  "D108": "Datumsangabe / beigefuegtes Datum",
+  "D108": "Datumsangabe / beigefügtes Datum",
   "D109": "Orts- oder Wohnungsangabe als Zusatz"
 };
