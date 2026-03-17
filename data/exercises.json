@@ -1,0 +1,369 @@
+[
+  {
+    "level": "Starter",
+    "id": "S1",
+    "text": "Er stand auf | und ging.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D111"
+    ],
+    "note": "Reihung mit 'und' → kein Komma",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S2",
+    "text": "Feuer | Wasser | Luft | und Erde.",
+    "slots": [
+      ",",
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D100",
+      "D100",
+      "D111"
+    ],
+    "note": "Aufzählung, letztes Element mit 'und'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S3",
+    "text": "Sie liest viele Bücher | vor allem Romane.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D105"
+    ],
+    "note": "Nachgestellte Erläuterung",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S4",
+    "text": "Hier stehe ich | ich kann nicht anders.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D118"
+    ],
+    "note": "Zwei Hauptsätze",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S5",
+    "text": "Wir waren arm | aber gesund.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D113"
+    ],
+    "note": "Entgegensetzung mit 'aber'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S6",
+    "text": "Harry | fahr bitte den Wagen vor.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D132"
+    ],
+    "note": "Anrede abtrennen (Brief/Anrede)",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A1",
+    "text": "Sobald ich Zeit habe | komme ich bei euch vorbei.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D121"
+    ],
+    "note": "Nebensatz vorangestellt",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A2",
+    "text": "Ich komme bei euch vorbei | sobald ich Zeit habe.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D121"
+    ],
+    "note": "Nebensatz nachgestellt",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A3",
+    "text": "Ich komme | sobald ich Zeit habe | bei euch vorbei.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D121"
+    ],
+    "note": "Eingeschobener Nebensatz",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A4",
+    "text": "Die Wunde heilte besser | als wir erwartet hatten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D112-2"
+    ],
+    "note": "als + Nebensatz",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A5",
+    "text": "Die Wunde heilte besser | als erwartet.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D112-1"
+    ],
+    "note": "als + Wortgruppe",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A6",
+    "text": "Wir erwarten | dass er die Ware liefert | oder dass er das Geld zurückzahlt.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D121",
+      "D122-2"
+    ],
+    "note": "Zwei Nebensätze mit 'oder'",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P1",
+    "text": "Das ist | grob gerechnet | die Hälfte.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D114",
+      "D114"
+    ],
+    "note": "Partizipgruppe – Kommas fakultativ",
+    "also_ok": [
+      [
+        "—",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P2",
+    "text": "Sie weigerte sich | uns zu helfen.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D116"
+    ],
+    "note": "Infinitivgruppe – Komma fakultativ",
+    "also_ok": [
+      [
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P3",
+    "text": "Sie ging nach Hause | um sich umzuziehen.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D117-1"
+    ],
+    "note": "Infinitivgruppe mit 'um' – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P4",
+    "text": "Mein Vorschlag | ins Kino zu gehen | wurde verworfen.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D117-2",
+      "D117-2"
+    ],
+    "note": "Infinitivgruppe abhängig von Substantiv – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P5",
+    "text": "Herr Meier aus Bonn | Lindenstraße 12 | hat zwei Freikarten gewonnen.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D109",
+      "D109"
+    ],
+    "note": "Wohnungsangabe – schließendes Komma freigestellt",
+    "also_ok": [
+      [
+        ",",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P6",
+    "text": "Sie kommt am Mittwoch | dem 12. August | wieder zurück.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D108",
+      "D108"
+    ],
+    "note": "Datumsangabe – schließendes Komma freigestellt",
+    "also_ok": [
+      [
+        ",",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E1",
+    "text": "Wir hoffen | dass wir Ihnen weiterhelfen konnten | und verbleiben mit freundlichen Grüßen.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D119-3"
+    ],
+    "note": "Komma des Nebensatzes bleibt vor 'und' erhalten",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E2",
+    "text": "Entweder ich sage es ihm | und zwar heute noch | oder du sagst es ihm morgen selbst.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D120",
+      "D120"
+    ],
+    "note": "Einschub mit 'und zwar'",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E3",
+    "text": "Das Tier | es wird wohl ein Wiesel gewesen sein | war plötzlich verschwunden.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D120",
+      "D120"
+    ],
+    "note": "Eingeschobener selbstständiger Teilsatz",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E4",
+    "text": "Der Plan ist viel zu umständlich | als dass wir ihn ausführen könnten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D126"
+    ],
+    "note": "Mehrteilige Fügung – kein Komma zwischen 'als dass'",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E5",
+    "text": "Sie waren arm | aber nicht unglücklich | und hatten viele Freunde.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D113",
+      "D111"
+    ],
+    "note": "Schließendes Komma nach 'aber'-Gruppe freigestellt",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E6",
+    "text": "Angenommen | dass morgen gutes Wetter ist | wohin wollen wir fahren?",
+    "slots": [
+      "—",
+      ","
+    ],
+    "reasons": [
+      "D127",
+      "D121"
+    ],
+    "note": "Komma nach 'Angenommen' möglich; Nebensatz vorangestellt",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
+  }
+]
