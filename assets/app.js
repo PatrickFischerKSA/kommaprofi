@@ -7,8 +7,8 @@
   tabs.forEach(btn=>btn.addEventListener('click',()=>{
     tabs.forEach(b=>b.classList.remove('active'));
     $$('.tab').forEach(t=>t.classList.remove('active'));
+    const id = btn.dataset.tab; $('#'+id).classList.add('active');
     btn.classList.add('active');
-    $('#'+btn.dataset.tab).classList.add('active');
   }));
 
   const levelSel = $('#level');
@@ -27,6 +27,11 @@
   fetch('data/rules.json').then(r=>r.json()).then(d=>RULES=d);
   fetch('data/exercises.json').then(r=>r.json()).then(d=>{ BANK=d; });
 
+  // Debug visualiser
+  if(/[?&]debug=1/.test(location.search)){
+    document.documentElement.classList.add('debug');
+  }
+
   // Persist CH mode
   if (chBox){
     const saved = localStorage.getItem(CH_KEY);
@@ -39,34 +44,30 @@
   function normalizeSpaces(s){ return s.replace(/\s+/g,' ').trim(); }
   function tokenize(s){ return normalizeSpaces(s).split(' '); }
 
-  // Build a plain sentence without '|' + compute mapping of slot boundaries → word boundaries
+  // Robust compile: trim & normalize each part, compute slot→word boundary map
   function compileExercise(ex){
-    const parts = ex.text.split('|');
-    const plain = normalizeSpaces(parts.join(' '));
-
-    // boundaryIndices: positions between tokens (0..tokens-2) that correspond to original slots
+    const partsRaw = ex.text.split('|');
+    const parts = partsRaw.map(p => p.replace(/\s+/g,' ').trim());
+    const plain = parts.join(' ');
     const tokens = tokenize(plain);
-    let boundaryIndices = [];
-    let left = '';
+
+    const boundaryIndices = [];
+    let acc = '';
     for(let i=0;i<parts.length-1;i++){
-      left = normalizeSpaces((left + ' ' + parts[i]).trim());
-      const leftTokens = left ? tokenize(left).length : 0;
-      const idx = Math.max(0, leftTokens-1);
+      acc = acc ? (acc + ' ' + parts[i]) : parts[i];
+      const idx = tokenize(acc).length - 1; // index of gap after this token
       boundaryIndices.push(idx);
     }
 
-    // expected full comma vector for all word gaps (default no comma)
     const full = new Array(Math.max(0, tokens.length-1)).fill('—');
-    ex.slots.forEach((sym, j)=>{ const b = boundaryIndices[j]; if(b!=null) full[b]=sym; });
+    (ex.slots||[]).forEach((sym,j)=>{ const b = boundaryIndices[j]; if(b!=null) full[b]=sym; });
 
-    // also_ok expand
     const altFull = (ex.also_ok||[]).map(alt=>{
       const v = new Array(full.length).fill('—');
-      alt.forEach((sym, j)=>{ const b = boundaryIndices[j]; if(b!=null) v[b]=sym; });
+      alt.forEach((sym,j)=>{ const b = boundaryIndices[j]; if(b!=null) v[b]=sym; });
       return v;
     });
 
-    // reasons full mapping
     const reasonsFull = new Array(full.length).fill('');
     (ex.reasons||[]).forEach((r,j)=>{ const b = boundaryIndices[j]; if(b!=null) reasonsFull[b]=r; });
 
@@ -77,8 +78,7 @@
     const askWhy = requireWhy.checked || lvl==='Profi' || lvl==='Expert';
     const pool = BANK.filter(x=>x.level===lvl);
     const n = Math.min(5, pool.length);
-    const shuffled = pool.sort(()=>Math.random()-0.5).slice(0,n)
-                         .map(compileExercise);
+    const shuffled = pool.sort(()=>Math.random()-0.5).slice(0,n).map(compileExercise);
     current = shuffled;
     render(current, askWhy);
   }
@@ -89,7 +89,6 @@
       const group = document.createElement('div');
       group.className='sentence';
       group.dataset.plain = ex.plain;
-      // user comma vector: initially none
       const user = new Array(Math.max(0, ex.tokens.length-1)).fill('—');
       group.dataset.user = JSON.stringify(user);
 
@@ -103,7 +102,6 @@
           w.textContent = ex.tokens[i];
           group.appendChild(w);
           if(i<ex.tokens.length-1){
-            // invisible clickable zone
             const zone = document.createElement('span');
             zone.className='comma-zone';
             zone.dataset.idx = i;
@@ -120,7 +118,6 @@
               comma.textContent=',';
               group.appendChild(comma);
 
-              // Rule picker only if this boundary is evaluable (has a target reason)
               if(askWhy && ex.reasonsFull[i]){
                 const dd = document.createElement('select');
                 dd.className='rule-picker';
@@ -130,8 +127,6 @@
                 group.appendChild(dd);
               }
             }
-
-            // space between words
             group.appendChild(document.createTextNode(' '));
           }
         }
@@ -156,11 +151,9 @@
   }
 
   function isAccepted(ex, guess){
-    // baseline
     if(arraysEqual(guess, ex.full)) return true;
     if(ex.altFull && ex.altFull.some(alt=>arraysEqual(guess, alt))) return true;
 
-    // Schweiz-Option D132: akzeptiere , und — bei D132-Grenzen
     const ch = !!(chBox && chBox.checked);
     if(ch){
       let ok = true;
@@ -184,7 +177,6 @@
       const user = JSON.parse(group.dataset.user);
       let ok = isAccepted(ex, user);
 
-      // Rule check (only for positions that have a target reason and user set a comma)
       const askWhy = requireWhy.checked || ex.level==='Profi' || ex.level==='Expert';
       if(askWhy){
         const picks = $$('.rule-picker', group);
@@ -207,6 +199,5 @@
   nextBtn.addEventListener('click', ()=> pickLevel(levelSel.value));
   checkBtn.addEventListener('click', check);
 
-  // Default
   pickLevel(levelSel.value);
 })();
