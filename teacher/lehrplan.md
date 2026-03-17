@@ -1,6 +1,4 @@
-# Lehrer*innen-Notizen
-
-- **Ziel**: sichere Beherrschung der Kommaregeln (D100–D132), inkl. Begründung ab Level *Profi*.
-- **Schweiz‑Option**: D132 (Briefanrede) erlaubt fehlendes Komma; die App akzeptiert beides im CH‑Modus.
-- **Bewertung**: Starter*in/Azubi 1P pro Satz; Profi/Expert*in 1P Zeichensetzung + 1P Regel.
-- **Quelle**: `assets/duden.pdf` (D100–D132)
+# Lehrkraft – Inline-Version
+- Keine sichtbaren Einsetzstellen; Kommas werden direkt gesetzt (Klick zwischen Wörter)
+- Schweiz‑Option (D132) akzeptiert bei Anrede , **oder** —
+- Bewertung: 1P pro korrektem Satz; in *Profi/Expert* zusätzlich 1P für korrekte Regel
