@@ -19,6 +19,7 @@
   const loadBtn = $('#load');
   const nextBtn = $('#next');
   const checkBtn = $('#check');
+  const resetBtn = $('#reset');
   const exerciseEl = $('#exercise');
   const scoreEl = $('#score');
 
@@ -27,12 +28,10 @@
   fetch('data/rules.json').then(r=>r.json()).then(d=>RULES=d);
   fetch('data/exercises.json').then(r=>r.json()).then(d=>{ BANK=d; });
 
-  // Debug visualiser
   if(/[?&]debug=1/.test(location.search)){
     document.documentElement.classList.add('debug');
   }
 
-  // Persist CH mode
   if (chBox){
     const saved = localStorage.getItem(CH_KEY);
     if (saved!==null) chBox.checked = (saved==='1');
@@ -44,7 +43,6 @@
   function normalizeSpaces(s){ return s.replace(/\s+/g,' ').trim(); }
   function tokenize(s){ return normalizeSpaces(s).split(' '); }
 
-  // Robust compile: trim & normalize each part, compute slot→word boundary map
   function compileExercise(ex){
     const partsRaw = ex.text.split('|');
     const parts = partsRaw.map(p => p.replace(/\s+/g,' ').trim());
@@ -55,7 +53,7 @@
     let acc = '';
     for(let i=0;i<parts.length-1;i++){
       acc = acc ? (acc + ' ' + parts[i]) : parts[i];
-      const idx = tokenize(acc).length - 1; // index of gap after this token
+      const idx = tokenize(acc).length - 1;
       boundaryIndices.push(idx);
     }
 
@@ -102,9 +100,11 @@
           w.textContent = ex.tokens[i];
           group.appendChild(w);
           if(i<ex.tokens.length-1){
-            const zone = document.createElement('span');
-            zone.className='comma-zone';
+            const zone = document.createElement('button');
+            zone.type = 'button';
+            zone.className = 'comma-zone';
             zone.dataset.idx = i;
+            zone.setAttribute('aria-label','Komma setzen/entfernen');
             zone.addEventListener('click', ()=>{
               arr[i] = (arr[i]==='—') ? ',' : '—';
               group.dataset.user = JSON.stringify(arr);
@@ -146,9 +146,7 @@
     scoreEl.textContent='';
   }
 
-  function arraysEqual(a,b){
-    return a.length===b.length && a.every((v,i)=>v===b[i]);
-  }
+  function arraysEqual(a,b){ return a.length===b.length && a.every((v,i)=>v===b[i]); }
 
   function isAccepted(ex, guess){
     if(arraysEqual(guess, ex.full)) return true;
@@ -195,9 +193,16 @@
     scoreEl.textContent = `Richtig: ${correct} / ${total}`;
   }
 
+  function doReset(){
+    const askWhy = requireWhy.checked || levelSel.value==='Profi' || levelSel.value==='Expert';
+    render(current, askWhy); // re-render current set → clears commas & picks
+    scoreEl.textContent = '';
+  }
+
   loadBtn.addEventListener('click', ()=> pickLevel(levelSel.value));
   nextBtn.addEventListener('click', ()=> pickLevel(levelSel.value));
   checkBtn.addEventListener('click', check);
+  resetBtn.addEventListener('click', doReset);
 
   pickLevel(levelSel.value);
 })();
