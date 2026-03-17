@@ -365,5 +365,1471 @@
         ","
       ]
     ]
+  },
+  {
+    "level": "Azubi",
+    "id": "A7",
+    "text": "Weil ich krank war | blieb ich zu Hause.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D121"
+    ],
+    "note": "Nebensatz vorangestellt",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A8",
+    "text": "Wir gingen spazieren | obwohl es regnete.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D121"
+    ],
+    "note": "Nebensatz nachgestellt",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A9",
+    "text": "Nachdem wir gegessen hatten | gingen wir ins Kino.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D121"
+    ],
+    "note": "Nebensatz vorangestellt",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A10",
+    "text": "Die Aufgabe war leichter | als wir dachten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D112-2"
+    ],
+    "note": "als + Nebensatz",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A11",
+    "text": "Die Aufgabe war leichter | als erwartet.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D112-1"
+    ],
+    "note": "als + Wortgruppe",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A12",
+    "text": "Er sagte | dass er nachkommt | und dass er später anruft.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D121",
+      "D122-2"
+    ],
+    "note": "Zwei Nebensätze mit 'und'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S7",
+    "text": "Ich stand auf | und ging heim.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D111"
+    ],
+    "note": "Reihung mit 'und' → kein Komma",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S8",
+    "text": "Er ging hinaus | und lief weiter.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D111"
+    ],
+    "note": "Reihung mit 'und' → kein Komma",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S9",
+    "text": "Wir schaute hinaus | und ging.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D111"
+    ],
+    "note": "Reihung mit 'und' → kein Komma",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S10",
+    "text": "Du stand auf | und las weiter.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D111"
+    ],
+    "note": "Reihung mit 'und' → kein Komma",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S11",
+    "text": "Brot | Käse | Milch | und Eier.",
+    "slots": [
+      ",",
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D100",
+      "D100",
+      "D111"
+    ],
+    "note": "Aufzählung, letztes Element mit 'und'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S12",
+    "text": "Rot | Blau | Gelb | und Grün.",
+    "slots": [
+      ",",
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D100",
+      "D100",
+      "D111"
+    ],
+    "note": "Aufzählung, letztes Element mit 'und'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S13",
+    "text": "Tisch | Stuhl | Lampe | und Regal.",
+    "slots": [
+      ",",
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D100",
+      "D100",
+      "D111"
+    ],
+    "note": "Aufzählung, letztes Element mit 'und'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S14",
+    "text": "Frühling | Sommer | Herbst | und Winter.",
+    "slots": [
+      ",",
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D100",
+      "D100",
+      "D111"
+    ],
+    "note": "Aufzählung, letztes Element mit 'und'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S15",
+    "text": "Wir treffen uns | und zwar morgen.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D105"
+    ],
+    "note": "Nachgestellte Erläuterung",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S16",
+    "text": "Wir treffen uns | vor allem Klassiker.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D105"
+    ],
+    "note": "Nachgestellte Erläuterung",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S17",
+    "text": "Wir treffen uns | nämlich den Haustürschlüssel.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D105"
+    ],
+    "note": "Nachgestellte Erläuterung",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S18",
+    "text": "Wir treffen uns | zum Beispiel Schokolade.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D105"
+    ],
+    "note": "Nachgestellte Erläuterung",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S19",
+    "text": "Die Sonne schien | wir gingen spazieren.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D118"
+    ],
+    "note": "Zwei Hauptsätze",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S20",
+    "text": "Der Wind legte sich | ich machte ein Foto.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D118"
+    ],
+    "note": "Zwei Hauptsätze",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S21",
+    "text": "Die Kinder spielten | die Eltern ruhten sich aus.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D118"
+    ],
+    "note": "Zwei Hauptsätze",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S22",
+    "text": "Der Zug fuhr ab | niemand winkte.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D118"
+    ],
+    "note": "Zwei Hauptsätze",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S23",
+    "text": "Es war spät | aber hell.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D113"
+    ],
+    "note": "Entgegensetzung mit 'aber'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S24",
+    "text": "Wir waren müde | aber zufrieden.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D113"
+    ],
+    "note": "Entgegensetzung mit 'aber'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S25",
+    "text": "Sie war klein | aber stark.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D113"
+    ],
+    "note": "Entgegensetzung mit 'aber'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S26",
+    "text": "Er war arm | aber glücklich.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D113"
+    ],
+    "note": "Entgegensetzung mit 'aber'",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S27",
+    "text": "Lara | komm bitte kurz her.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D132"
+    ],
+    "note": "Anrede abtrennen (Brief/Anrede)",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S28",
+    "text": "Tom | komm bitte kurz her.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D132"
+    ],
+    "note": "Anrede abtrennen (Brief/Anrede)",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S29",
+    "text": "Lea | komm bitte kurz her.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D132"
+    ],
+    "note": "Anrede abtrennen (Brief/Anrede)",
+    "also_ok": []
+  },
+  {
+    "level": "Starter",
+    "id": "S30",
+    "text": "Ben | komm bitte kurz her.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D132"
+    ],
+    "note": "Anrede abtrennen (Brief/Anrede)",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A13",
+    "text": "Wenn es regnet | bleiben wir zu Hause.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D121"
+    ],
+    "note": "Nebensatz vorangestellt",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A14",
+    "text": "Wenn es regnet | bleiben wir zu Hause.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D121"
+    ],
+    "note": "Nebensatz vorangestellt",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A15",
+    "text": "Wir bleiben zu Hause | wenn es regnet.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D121"
+    ],
+    "note": "Nebensatz nachgestellt",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A16",
+    "text": "Wir bleiben zu Hause | wenn es regnet.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D121"
+    ],
+    "note": "Nebensatz nachgestellt",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A17",
+    "text": "Wir bleiben | wenn es stark regnet | trotzdem optimistisch.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D121"
+    ],
+    "note": "Eingeschobener Nebensatz",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A18",
+    "text": "Wir bleiben | wenn es stark regnet | trotzdem optimistisch.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D121"
+    ],
+    "note": "Eingeschobener Nebensatz",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A19",
+    "text": "Er arbeitete härter | als wir dachten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D112-2"
+    ],
+    "note": "als + Nebensatz",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A20",
+    "text": "Das Meer war kälter | als wir erwartet hatten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D112-2"
+    ],
+    "note": "als + Nebensatz",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A21",
+    "text": "Sie lief schneller | als wir glaubten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D112-2"
+    ],
+    "note": "als + Nebensatz",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A22",
+    "text": "Das Haus war teurer | als wir vermutet hatten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D112-2"
+    ],
+    "note": "als + Nebensatz",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A23",
+    "text": "Er arbeitete härter | als gedacht.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D112-1"
+    ],
+    "note": "als + Wortgruppe",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A24",
+    "text": "Das Meer war kälter | als erwartet.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D112-1"
+    ],
+    "note": "als + Wortgruppe",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A25",
+    "text": "Sie lief schneller | als üblich.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D112-1"
+    ],
+    "note": "als + Wortgruppe",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A26",
+    "text": "Die Prüfung war leichter | als befürchtet.",
+    "slots": [
+      "—"
+    ],
+    "reasons": [
+      "D112-1"
+    ],
+    "note": "als + Wortgruppe",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A27",
+    "text": "Wir hoffen | dass er kommt | oder dass er Bescheid sagt.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D121",
+      "D122-2"
+    ],
+    "note": "Zwei Nebensätze mit Konjunktion",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A28",
+    "text": "Er sagte | dass er nachkommt | und dass er später anruft.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D121",
+      "D122-2"
+    ],
+    "note": "Zwei Nebensätze mit Konjunktion",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A29",
+    "text": "Sie versprach | dass sie pünktlich ist | und dass sie die Unterlagen mitbringt.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D121",
+      "D122-2"
+    ],
+    "note": "Zwei Nebensätze mit Konjunktion",
+    "also_ok": []
+  },
+  {
+    "level": "Azubi",
+    "id": "A30",
+    "text": "Wir wissen | dass er hilft | oder dass er jemanden schickt.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D121",
+      "D122-2"
+    ],
+    "note": "Zwei Nebensätze mit Konjunktion",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P7",
+    "text": "Das ist | grob gerechnet | richtig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D114",
+      "D114"
+    ],
+    "note": "Partizip-/Adj.gruppe – fakultativ",
+    "also_ok": [
+      [
+        "—",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P8",
+    "text": "Das ist | streng genommen | richtig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D114",
+      "D114"
+    ],
+    "note": "Partizip-/Adj.gruppe – fakultativ",
+    "also_ok": [
+      [
+        "—",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P9",
+    "text": "Das ist | ehrlich gesagt | richtig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D114",
+      "D114"
+    ],
+    "note": "Partizip-/Adj.gruppe – fakultativ",
+    "also_ok": [
+      [
+        "—",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P10",
+    "text": "Das ist | genau betrachtet | richtig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D114",
+      "D114"
+    ],
+    "note": "Partizip-/Adj.gruppe – fakultativ",
+    "also_ok": [
+      [
+        "—",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P11",
+    "text": "Das ist | musikalisch gesehen | richtig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D114",
+      "D114"
+    ],
+    "note": "Partizip-/Adj.gruppe – fakultativ",
+    "also_ok": [
+      [
+        "—",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P12",
+    "text": "Das ist | historisch betrachtet | richtig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D114",
+      "D114"
+    ],
+    "note": "Partizip-/Adj.gruppe – fakultativ",
+    "also_ok": [
+      [
+        "—",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P13",
+    "text": "Sie versuchte | uns zu helfen.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D116"
+    ],
+    "note": "Infinitivgruppe – Komma fakultativ",
+    "also_ok": [
+      [
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P14",
+    "text": "Sie versuchte | uns zu helfen.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D116"
+    ],
+    "note": "Infinitivgruppe – Komma fakultativ",
+    "also_ok": [
+      [
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P15",
+    "text": "Sie versuchte | uns zu helfen.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D116"
+    ],
+    "note": "Infinitivgruppe – Komma fakultativ",
+    "also_ok": [
+      [
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P16",
+    "text": "Sie versuchte | uns zu helfen.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D116"
+    ],
+    "note": "Infinitivgruppe – Komma fakultativ",
+    "also_ok": [
+      [
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P17",
+    "text": "Er ging früh ins Bett | um morgen fit zu sein.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D117-1"
+    ],
+    "note": "Infinitivgruppe mit 'um' – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P18",
+    "text": "Er ging früh ins Bett | um morgen fit zu sein.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D117-1"
+    ],
+    "note": "Infinitivgruppe mit 'um' – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P19",
+    "text": "Er ging früh ins Bett | um morgen fit zu sein.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D117-1"
+    ],
+    "note": "Infinitivgruppe mit 'um' – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P20",
+    "text": "Er ging früh ins Bett | um morgen fit zu sein.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D117-1"
+    ],
+    "note": "Infinitivgruppe mit 'um' – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P21",
+    "text": "Der Plan | das Haus zu renovieren | wurde verschoben.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D117-2",
+      "D117-2"
+    ],
+    "note": "Infinitivgruppe abhängig von Substantiv – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P22",
+    "text": "Der Plan | das Haus zu renovieren | wurde verschoben.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D117-2",
+      "D117-2"
+    ],
+    "note": "Infinitivgruppe abhängig von Substantiv – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P23",
+    "text": "Der Plan | das Haus zu renovieren | wurde verschoben.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D117-2",
+      "D117-2"
+    ],
+    "note": "Infinitivgruppe abhängig von Substantiv – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P24",
+    "text": "Der Plan | das Haus zu renovieren | wurde verschoben.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D117-2",
+      "D117-2"
+    ],
+    "note": "Infinitivgruppe abhängig von Substantiv – Komma obligatorisch",
+    "also_ok": []
+  },
+  {
+    "level": "Profi",
+    "id": "P25",
+    "text": "Frau Keller aus Zürich | Bahnhofstraße 5 | gewann die Reise.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D109",
+      "D109"
+    ],
+    "note": "Wohnungsangabe – schließendes Komma freigestellt",
+    "also_ok": [
+      [
+        ",",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P26",
+    "text": "Frau Keller aus Zürich | Bahnhofstraße 5 | gewann die Reise.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D109",
+      "D109"
+    ],
+    "note": "Wohnungsangabe – schließendes Komma freigestellt",
+    "also_ok": [
+      [
+        ",",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P27",
+    "text": "Frau Keller aus Zürich | Bahnhofstraße 5 | gewann die Reise.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D109",
+      "D109"
+    ],
+    "note": "Wohnungsangabe – schließendes Komma freigestellt",
+    "also_ok": [
+      [
+        ",",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P28",
+    "text": "Sie kommt am Freitag | dem 3. Mai | wieder zurück.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D108",
+      "D108"
+    ],
+    "note": "Datumsangabe – schließendes Komma freigestellt",
+    "also_ok": [
+      [
+        ",",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P29",
+    "text": "Sie kommt am Freitag | dem 3. Mai | wieder zurück.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D108",
+      "D108"
+    ],
+    "note": "Datumsangabe – schließendes Komma freigestellt",
+    "also_ok": [
+      [
+        ",",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Profi",
+    "id": "P30",
+    "text": "Sie kommt am Freitag | dem 3. Mai | wieder zurück.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D108",
+      "D108"
+    ],
+    "note": "Datumsangabe – schließendes Komma freigestellt",
+    "also_ok": [
+      [
+        ",",
+        "—"
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E7",
+    "text": "Wir glauben | dass das klappen wird | und freuen uns.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D119-3"
+    ],
+    "note": "Komma des Nebensatzes bleibt vor \"und\" erhalten",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E8",
+    "text": "Wir glauben | dass das klappen wird | und freuen uns.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D119-3"
+    ],
+    "note": "Komma des Nebensatzes bleibt vor \"und\" erhalten",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E9",
+    "text": "Wir glauben | dass das klappen wird | und freuen uns.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D119-3"
+    ],
+    "note": "Komma des Nebensatzes bleibt vor \"und\" erhalten",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E10",
+    "text": "Wir glauben | dass das klappen wird | und freuen uns.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D119-3"
+    ],
+    "note": "Komma des Nebensatzes bleibt vor \"und\" erhalten",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E11",
+    "text": "Wir glauben | dass das klappen wird | und freuen uns.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D119-3"
+    ],
+    "note": "Komma des Nebensatzes bleibt vor \"und\" erhalten",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E12",
+    "text": "Wir glauben | dass das klappen wird | und freuen uns.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D121",
+      "D119-3"
+    ],
+    "note": "Komma des Nebensatzes bleibt vor \"und\" erhalten",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E13",
+    "text": "Das Auto | es war erst gestern gewaschen worden | ist wieder schmutzig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D120",
+      "D120"
+    ],
+    "note": "Eingeschobener selbstständiger Teilsatz",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E14",
+    "text": "Das Auto | es war erst gestern gewaschen worden | ist wieder schmutzig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D120",
+      "D120"
+    ],
+    "note": "Eingeschobener selbstständiger Teilsatz",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E15",
+    "text": "Das Auto | es war erst gestern gewaschen worden | ist wieder schmutzig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D120",
+      "D120"
+    ],
+    "note": "Eingeschobener selbstständiger Teilsatz",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E16",
+    "text": "Das Auto | es war erst gestern gewaschen worden | ist wieder schmutzig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D120",
+      "D120"
+    ],
+    "note": "Eingeschobener selbstständiger Teilsatz",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E17",
+    "text": "Das Auto | es war erst gestern gewaschen worden | ist wieder schmutzig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D120",
+      "D120"
+    ],
+    "note": "Eingeschobener selbstständiger Teilsatz",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E18",
+    "text": "Das Auto | es war erst gestern gewaschen worden | ist wieder schmutzig.",
+    "slots": [
+      ",",
+      ","
+    ],
+    "reasons": [
+      "D120",
+      "D120"
+    ],
+    "note": "Eingeschobener selbstständiger Teilsatz",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E19",
+    "text": "Die Aufgabe ist zu schwer | als dass wir sie heute lösen könnten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D126"
+    ],
+    "note": "Mehrteilige Fügung – kein Komma zwischen \"als dass\"",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E20",
+    "text": "Die Aufgabe ist zu schwer | als dass wir sie heute lösen könnten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D126"
+    ],
+    "note": "Mehrteilige Fügung – kein Komma zwischen \"als dass\"",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E21",
+    "text": "Die Aufgabe ist zu schwer | als dass wir sie heute lösen könnten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D126"
+    ],
+    "note": "Mehrteilige Fügung – kein Komma zwischen \"als dass\"",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E22",
+    "text": "Die Aufgabe ist zu schwer | als dass wir sie heute lösen könnten.",
+    "slots": [
+      ","
+    ],
+    "reasons": [
+      "D126"
+    ],
+    "note": "Mehrteilige Fügung – kein Komma zwischen \"als dass\"",
+    "also_ok": []
+  },
+  {
+    "level": "Expert",
+    "id": "E23",
+    "text": "Er war müde | aber nicht unhöflich | und blieb dennoch freundlich.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D113",
+      "D111"
+    ],
+    "note": "Schließendes Komma nach 'aber'-Gruppe freigestellt",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E24",
+    "text": "Er war müde | aber nicht unhöflich | und blieb dennoch freundlich.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D113",
+      "D111"
+    ],
+    "note": "Schließendes Komma nach 'aber'-Gruppe freigestellt",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E25",
+    "text": "Er war müde | aber nicht unhöflich | und blieb dennoch freundlich.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D113",
+      "D111"
+    ],
+    "note": "Schließendes Komma nach 'aber'-Gruppe freigestellt",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E26",
+    "text": "Er war müde | aber nicht unhöflich | und blieb dennoch freundlich.",
+    "slots": [
+      ",",
+      "—"
+    ],
+    "reasons": [
+      "D113",
+      "D111"
+    ],
+    "note": "Schließendes Komma nach 'aber'-Gruppe freigestellt",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E27",
+    "text": "Angenommen | dass wir genug Zeit haben | was wollen wir besichtigen?",
+    "slots": [
+      "—",
+      ","
+    ],
+    "reasons": [
+      "D127",
+      "D121"
+    ],
+    "note": "Komma nach \"Angenommen\" möglich",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E28",
+    "text": "Angenommen | dass wir genug Zeit haben | was wollen wir besichtigen?",
+    "slots": [
+      "—",
+      ","
+    ],
+    "reasons": [
+      "D127",
+      "D121"
+    ],
+    "note": "Komma nach \"Angenommen\" möglich",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E29",
+    "text": "Angenommen | dass wir genug Zeit haben | was wollen wir besichtigen?",
+    "slots": [
+      "—",
+      ","
+    ],
+    "reasons": [
+      "D127",
+      "D121"
+    ],
+    "note": "Komma nach \"Angenommen\" möglich",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
+  },
+  {
+    "level": "Expert",
+    "id": "E30",
+    "text": "Angenommen | dass wir genug Zeit haben | was wollen wir besichtigen?",
+    "slots": [
+      "—",
+      ","
+    ],
+    "reasons": [
+      "D127",
+      "D121"
+    ],
+    "note": "Komma nach \"Angenommen\" möglich",
+    "also_ok": [
+      [
+        ",",
+        ","
+      ]
+    ]
   }
 ]
