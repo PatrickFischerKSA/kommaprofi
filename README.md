@@ -1,15 +1,26 @@
-# Kommaprofi – Interaktive Lerneinheit zur Kommasetzung
+# Kommaprofi – Inline‑Kommasetzung (unsichtbare Klickbereiche)
 
-Vier Level (Starter*in, Azubi, Profi, Expert*in), integriertes Regel-PDF (D100–D132), sofortiges Feedback, **Schweiz‑Option** (Briefanrede ohne Komma nach D132).
+Diese Version vermeidet sichtbare Einsetzstellen vollständig. Kommas werden **direkt im Satz** durch Klick zwischen Wörtern gesetzt/entfernt. Optional: Schweiz‑Option (D132), Lehrkraftmodus, Begründungspflicht ab *Profi*/*Expert*in*.
 
 ## Start
-- `index.html` im Browser öffnen (offline nutzbar).
-- Tab **Regelwerk** zeigt das Duden-PDF (`assets/duden.pdf`).
-- **Lehrkraftmodus**: `?teacher=1` blendet Lösungshinweise ein.
-- **Schweiz‑Option**: Checkbox oben rechts.
+1. Ordner öffnen, `index.html` im Browser starten (offline nutzbar)
+2. Level wählen → **Start**
+3. Zwischen Wörter klicken, um Kommas einzufügen/zu entfernen
+4. **Prüfen** für Feedback; Optional: **Begründung abfragen** aktivieren
 
-## GitHub Pages
-- Action `.github/workflows/pages.yml` liegt bei. Nach Push auf `main` wird die Seite automatisch veröffentlicht.
+## Besonderheiten
+- **Unsichtbare Klickbereiche** (keine Slots → kein Vorwegnehmen der Positionen)
+- **Schweiz‑Option (D132)**: Briefanrede ohne Komma wird akzeptiert
+- **Regelbegründung**: erscheint *nur* dort, wo ein gesetztes Komma an einer bewertungsrelevanten Stelle steht
+- **Teacher‑Mode**: `?teacher=1` → zusätzliche Hinweise nach der Prüfung
+
+## Struktur
+- `index.html` – App
+- `assets/app.js`, `assets/style.css`
+- `assets/duden.pdf` – Regelwerk D100–D132
+- `data/exercises.json` – Aufgabenbank (mit Soll‑Kommas & Regeln)
+- `data/rules.json` – Regelkürzel → Kurztexte
+- `.github/workflows/pages.yml` – GitHub Pages
 
 ## Lizenz
 MIT
