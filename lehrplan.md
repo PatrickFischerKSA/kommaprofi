@@ -1,0 +1,1 @@
+Inline V3: stylisches Design, Reset-Button, Button-Klickzonen, CH-Option (D132), Debug (?debug=1).
