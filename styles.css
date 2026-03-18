@@ -124,27 +124,28 @@ body.mistake-stage-3 .mistake-veil {
 
 .mistake-media {
   position: fixed;
-  inset: 0;
+  top: 22px;
+  right: 22px;
   z-index: 40;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  background: rgba(7, 17, 25, 0.34);
+  width: min(34vw, 420px);
+  pointer-events: none;
 }
 
 .mistake-media-frame {
-  width: min(92vw, 760px);
-  border-radius: 28px;
+  width: 100%;
+  border-radius: 24px;
   overflow: hidden;
   border: 1px solid rgba(244, 232, 212, 0.28);
   background: rgba(7, 17, 25, 0.82);
   box-shadow: 0 28px 80px rgba(0, 0, 0, 0.46);
+  transform: translateY(0);
+  animation: mistake-pop 0.25s ease;
 }
 
 .mistake-asset {
   display: block;
   width: 100%;
-  max-height: min(78vh, 900px);
+  max-height: min(48vh, 520px);
 }
 
 .mistake-image {
@@ -154,6 +155,17 @@ body.mistake-stage-3 .mistake-veil {
 
 .mistake-video {
   background: #020406;
+}
+
+@keyframes mistake-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .panel {
@@ -777,6 +789,9 @@ mark {
   }
 
   .mistake-media {
-    padding: 12px;
+    top: auto;
+    right: 10px;
+    bottom: 10px;
+    width: min(calc(100vw - 20px), 360px);
   }
 }
