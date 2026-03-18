@@ -34,7 +34,7 @@ const LEVELS = [
 const STORAGE_KEY = "kommaprofi-progress-v2";
 const OPTIONS_KEY = "kommaprofi-options-v1";
 const ROUND_SIZE = 6;
-const MISTAKE_IMAGE_SRC = "assets/Kommasetzen.jpg";
+const MISTAKE_IMAGE_SRC = "assets/Falsch.jpg";
 const MISTAKE_MEDIA = {
   1: {
     type: "image",
