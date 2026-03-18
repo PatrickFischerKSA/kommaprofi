@@ -39,17 +39,17 @@ const MISTAKE_MEDIA = {
   1: {
     type: "image",
     src: MISTAKE_IMAGE_SRC,
-    duration: 2200,
+    duration: 4200,
   },
   2: {
     type: "video",
     src: "assets/error-rotation-1.mp4",
-    duration: 4500,
+    duration: 6200,
   },
   3: {
     type: "video",
     src: "assets/error-rotation-2.mp4",
-    duration: 5000,
+    duration: 7000,
   },
 };
 
@@ -68,7 +68,7 @@ const state = {
   options: {
     requireWhy: false,
     chMode: false,
-    errorMode: false,
+    errorMode: true,
   },
   mistakeStage: 0,
   mistakeHideTimer: null,
@@ -172,7 +172,8 @@ function loadOptions() {
     const parsed = JSON.parse(raw);
     state.options.requireWhy = Boolean(parsed.requireWhy);
     state.options.chMode = Boolean(parsed.chMode);
-    state.options.errorMode = Boolean(parsed.errorMode);
+    state.options.errorMode =
+      parsed.errorMode === undefined ? true : Boolean(parsed.errorMode);
   } catch (error) {
     console.warn("Optionen konnten nicht geladen werden.", error);
   }
