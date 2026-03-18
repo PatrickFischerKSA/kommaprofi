@@ -38,6 +38,19 @@ body {
     linear-gradient(180deg, var(--bg), var(--bg-deep));
 }
 
+body.mistake-stage-1 .app-shell {
+  filter: blur(2px) saturate(0.94);
+}
+
+body.mistake-stage-2 .app-shell {
+  filter: blur(5px) saturate(0.78) brightness(0.88);
+}
+
+body.mistake-stage-3 .app-shell {
+  filter: blur(8px) saturate(0.58) brightness(0.64) grayscale(0.16);
+  opacity: 0.9;
+}
+
 .backdrop {
   position: fixed;
   inset: 0;
@@ -74,6 +87,73 @@ body {
   margin: 24px auto 40px;
   display: grid;
   gap: 20px;
+  transition:
+    filter 0.45s ease,
+    opacity 0.45s ease;
+}
+
+.mistake-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.4s ease,
+    background 0.4s ease,
+    backdrop-filter 0.4s ease;
+}
+
+body.mistake-stage-1 .mistake-veil {
+  opacity: 1;
+  background: rgba(239, 195, 110, 0.08);
+  backdrop-filter: blur(2px);
+}
+
+body.mistake-stage-2 .mistake-veil {
+  opacity: 1;
+  background: rgba(7, 17, 25, 0.18);
+  backdrop-filter: blur(5px);
+}
+
+body.mistake-stage-3 .mistake-veil {
+  opacity: 1;
+  background: rgba(7, 17, 25, 0.34);
+  backdrop-filter: blur(8px);
+}
+
+.mistake-media {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(7, 17, 25, 0.34);
+}
+
+.mistake-media-frame {
+  width: min(92vw, 760px);
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(244, 232, 212, 0.28);
+  background: rgba(7, 17, 25, 0.82);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.46);
+}
+
+.mistake-asset {
+  display: block;
+  width: 100%;
+  max-height: min(78vh, 900px);
+}
+
+.mistake-image {
+  object-fit: contain;
+  background: rgba(7, 17, 25, 0.82);
+}
+
+.mistake-video {
+  background: #020406;
 }
 
 .panel {
@@ -694,5 +774,9 @@ mark {
 
   .sentence-area {
     font-size: 1.08rem;
+  }
+
+  .mistake-media {
+    padding: 12px;
   }
 }

@@ -34,6 +34,24 @@ const LEVELS = [
 const STORAGE_KEY = "kommaprofi-progress-v2";
 const OPTIONS_KEY = "kommaprofi-options-v1";
 const ROUND_SIZE = 6;
+const MISTAKE_IMAGE_SRC = "assets/Kommasetzen.jpg";
+const MISTAKE_MEDIA = {
+  1: {
+    type: "image",
+    src: MISTAKE_IMAGE_SRC,
+    duration: 2200,
+  },
+  2: {
+    type: "video",
+    src: "assets/error-rotation-1.mp4",
+    duration: 4500,
+  },
+  3: {
+    type: "video",
+    src: "assets/error-rotation-2.mp4",
+    duration: 5000,
+  },
+};
 
 const state = {
   rules: {},
@@ -50,7 +68,12 @@ const state = {
   options: {
     requireWhy: false,
     chMode: false,
+    errorMode: false,
   },
+  mistakeStage: 0,
+  mistakeHideTimer: null,
+  mistakeResetTimer: null,
+  restartPending: false,
 };
 
 const levelGridEl = document.getElementById("level-grid");
@@ -77,11 +100,15 @@ const feedbackTextEl = document.getElementById("feedback-text");
 const solutionBoxEl = document.getElementById("solution-box");
 const requireWhyEl = document.getElementById("require-why");
 const chModeEl = document.getElementById("ch-mode");
+const errorModeEl = document.getElementById("error-mode");
 const checkBtn = document.getElementById("check-btn");
 const resetBtn = document.getElementById("reset-btn");
 const nextBtn = document.getElementById("next-btn");
 const newRoundBtn = document.getElementById("new-round-btn");
 const rulebookListEl = document.getElementById("rulebook-list");
+const mistakeMediaEl = document.getElementById("mistake-media");
+const mistakeImageEl = document.getElementById("mistake-image");
+const mistakeVideoEl = document.getElementById("mistake-video");
 
 function createEmptyProgress() {
   return {
@@ -145,6 +172,7 @@ function loadOptions() {
     const parsed = JSON.parse(raw);
     state.options.requireWhy = Boolean(parsed.requireWhy);
     state.options.chMode = Boolean(parsed.chMode);
+    state.options.errorMode = Boolean(parsed.errorMode);
   } catch (error) {
     console.warn("Optionen konnten nicht geladen werden.", error);
   }
@@ -152,6 +180,109 @@ function loadOptions() {
 
 function saveOptions() {
   localStorage.setItem(OPTIONS_KEY, JSON.stringify(state.options));
+}
+
+function clearMistakeTimers() {
+  if (state.mistakeHideTimer) {
+    window.clearTimeout(state.mistakeHideTimer);
+    state.mistakeHideTimer = null;
+  }
+
+  if (state.mistakeResetTimer) {
+    window.clearTimeout(state.mistakeResetTimer);
+    state.mistakeResetTimer = null;
+  }
+}
+
+function hideMistakeMedia() {
+  mistakeMediaEl.classList.add("hidden");
+  mistakeImageEl.classList.add("hidden");
+  mistakeVideoEl.classList.add("hidden");
+  mistakeVideoEl.pause();
+  mistakeVideoEl.removeAttribute("src");
+  mistakeVideoEl.load();
+}
+
+function applyMistakeStage() {
+  document.body.classList.remove(
+    "mistake-stage-1",
+    "mistake-stage-2",
+    "mistake-stage-3"
+  );
+
+  if (state.mistakeStage > 0) {
+    document.body.classList.add(`mistake-stage-${state.mistakeStage}`);
+  }
+}
+
+function clearMistakeMode() {
+  clearMistakeTimers();
+  state.mistakeStage = 0;
+  state.restartPending = false;
+  applyMistakeStage();
+  hideMistakeMedia();
+}
+
+function restartTrainerFromBeginning() {
+  clearMistakeMode();
+  state.currentLevelId = LEVELS[0].id;
+  startRound();
+  setFeedback(
+    "Der Fehlerrausch ist vorbei. Der Trainer startet wieder am Anfang.",
+    "info"
+  );
+}
+
+function showMistakeMedia(stage) {
+  const config = MISTAKE_MEDIA[stage];
+  if (!config) {
+    return;
+  }
+
+  clearMistakeTimers();
+  mistakeMediaEl.classList.remove("hidden");
+  mistakeImageEl.classList.add("hidden");
+  mistakeVideoEl.classList.add("hidden");
+
+  if (config.type === "image") {
+    mistakeImageEl.src = config.src;
+    mistakeImageEl.classList.remove("hidden");
+    state.mistakeHideTimer = window.setTimeout(() => {
+      hideMistakeMedia();
+    }, config.duration);
+    return;
+  }
+
+  mistakeVideoEl.src = config.src;
+  mistakeVideoEl.classList.remove("hidden");
+  mistakeVideoEl.currentTime = 0;
+  mistakeVideoEl.load();
+  const playPromise = mistakeVideoEl.play();
+  if (playPromise?.catch) {
+    playPromise.catch(() => {});
+  }
+
+  if (stage === 3) {
+    state.restartPending = true;
+    state.mistakeResetTimer = window.setTimeout(() => {
+      restartTrainerFromBeginning();
+    }, config.duration);
+    return;
+  }
+
+  state.mistakeHideTimer = window.setTimeout(() => {
+    hideMistakeMedia();
+  }, config.duration);
+}
+
+function triggerMistakeMode() {
+  if (!state.options.errorMode || state.restartPending) {
+    return;
+  }
+
+  state.mistakeStage = Math.min(state.mistakeStage + 1, 3);
+  applyMistakeStage();
+  showMistakeMedia(state.mistakeStage);
 }
 
 function levelMeta(levelId) {
@@ -321,6 +452,10 @@ function resetTaskState() {
 }
 
 function startRound() {
+  if (state.restartPending) {
+    return;
+  }
+
   state.round = buildRound(state.currentLevelId);
   state.currentIndex = 0;
   resetTaskState();
@@ -332,6 +467,10 @@ function startRound() {
 }
 
 function startLevel(levelId) {
+  if (state.restartPending) {
+    return;
+  }
+
   state.currentLevelId = levelId;
   startRound();
 }
@@ -802,7 +941,7 @@ function render() {
 }
 
 function toggleSlot(index) {
-  if (state.locked) {
+  if (state.locked || state.restartPending) {
     return;
   }
 
@@ -818,7 +957,7 @@ function toggleSlot(index) {
 }
 
 function clearSelection() {
-  if (state.locked) {
+  if (state.locked || state.restartPending) {
     return;
   }
 
@@ -850,6 +989,7 @@ function handleFailure() {
   recordAttempt(false);
   state.attemptsOnTask += 1;
   state.evaluation = evaluateCurrentExercise();
+  triggerMistakeMode();
 
   if (state.attemptsOnTask < 2) {
     setFeedback(buildHint(exercise, state.evaluation), "error");
@@ -869,7 +1009,7 @@ function handleFailure() {
 function checkCurrentTask() {
   const exercise = currentExercise();
 
-  if (!exercise) {
+  if (!exercise || state.restartPending) {
     return;
   }
 
@@ -894,6 +1034,10 @@ function checkCurrentTask() {
 }
 
 function nextTask() {
+  if (state.restartPending) {
+    return;
+  }
+
   if (state.currentIndex < state.round.length - 1) {
     state.currentIndex += 1;
   } else {
@@ -912,13 +1056,19 @@ function nextTask() {
 function handleOptionChange() {
   state.options.requireWhy = requireWhyEl.checked;
   state.options.chMode = chModeEl.checked;
+  state.options.errorMode = errorModeEl.checked;
   saveOptions();
+  if (!state.options.errorMode) {
+    clearMistakeMode();
+  }
   resetTaskState();
   render();
   setFeedback(
     currentNeedsWhy()
       ? "Regelbegründung ist aktiv. Jede gesetzte Stelle braucht jetzt einen Duden-Code."
-      : "Modus aktualisiert. Du trainierst jetzt nur die Kommasetzung.",
+      : state.options.errorMode
+        ? "Modus aktualisiert. Fehlerbild, Videos und Trübungsstufen sind jetzt aktiv."
+        : "Modus aktualisiert. Du trainierst jetzt nur die Kommasetzung.",
     "info"
   );
 }
@@ -938,6 +1088,7 @@ function initialiseData() {
 
   requireWhyEl.checked = state.options.requireWhy;
   chModeEl.checked = state.options.chMode;
+  errorModeEl.checked = state.options.errorMode;
   overallTotalEl.textContent = `von ${state.exercises.length}`;
 
   renderRulebook();
@@ -952,6 +1103,7 @@ nextBtn.addEventListener("click", nextTask);
 newRoundBtn.addEventListener("click", startRound);
 requireWhyEl.addEventListener("change", handleOptionChange);
 chModeEl.addEventListener("change", handleOptionChange);
+errorModeEl.addEventListener("change", handleOptionChange);
 
 try {
   setLoading("Übungen werden vorbereitet ...");

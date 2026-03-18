@@ -12,6 +12,24 @@
   </head>
   <body>
     <div class="backdrop" aria-hidden="true"></div>
+    <div id="mistake-veil" class="mistake-veil" aria-hidden="true"></div>
+    <div id="mistake-media" class="mistake-media hidden" aria-live="assertive">
+      <div class="mistake-media-frame">
+        <img
+          id="mistake-image"
+          class="mistake-asset hidden"
+          src="assets/Kommasetzen.jpg"
+          alt="Fehlerbild im Fehlerrausch-Modus"
+        />
+        <video
+          id="mistake-video"
+          class="mistake-asset hidden"
+          playsinline
+          muted
+          preload="auto"
+        ></video>
+      </div>
+    </div>
 
     <main class="app-shell">
       <section class="hero panel">
@@ -81,9 +99,16 @@
               <span>Schweiz-Option für Briefanreden ohne Komma zulassen</span>
             </label>
 
+            <label class="toggle">
+              <input id="error-mode" type="checkbox" />
+              <span>Fehlerrausch-Modus aktivieren</span>
+            </label>
+
             <p class="settings-note">
               In <strong>Profi</strong> und <strong>Expert</strong> wird die
-              Regelzuordnung immer eingeblendet.
+              Regelzuordnung immer eingeblendet. Im Fehlerrausch-Modus folgen
+              auf Fehler nacheinander Bild, Video, zweites Video und danach
+              ein Reset zum Beginn des Trainers.
             </p>
           </section>
 
