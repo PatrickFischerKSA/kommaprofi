@@ -105,6 +105,7 @@ const checkBtn = document.getElementById("check-btn");
 const resetBtn = document.getElementById("reset-btn");
 const nextBtn = document.getElementById("next-btn");
 const newRoundBtn = document.getElementById("new-round-btn");
+const pathResetBtn = document.getElementById("path-reset-btn");
 const rulebookListEl = document.getElementById("rulebook-list");
 const mistakeMediaEl = document.getElementById("mistake-media");
 const mistakeImageEl = document.getElementById("mistake-image");
@@ -160,6 +161,18 @@ function loadProgress() {
 
 function saveProgress() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state.progress));
+}
+
+function resetProgress() {
+  clearMistakeMode();
+  state.progress = createEmptyProgress();
+  localStorage.removeItem(STORAGE_KEY);
+  state.currentLevelId = LEVELS[0].id;
+  startRound();
+  setFeedback(
+    "Der Trainingspfad wurde zurückgesetzt. Du startest wieder bei Starter*in.",
+    "info"
+  );
 }
 
 function loadOptions() {
@@ -1102,6 +1115,7 @@ checkBtn.addEventListener("click", checkCurrentTask);
 resetBtn.addEventListener("click", clearSelection);
 nextBtn.addEventListener("click", nextTask);
 newRoundBtn.addEventListener("click", startRound);
+pathResetBtn.addEventListener("click", resetProgress);
 requireWhyEl.addEventListener("change", handleOptionChange);
 chModeEl.addEventListener("change", handleOptionChange);
 errorModeEl.addEventListener("change", handleOptionChange);

@@ -330,6 +330,10 @@ body.mistake-stage-3 .mistake-veil {
   gap: 12px;
 }
 
+.sidebar-actions {
+  margin-top: 14px;
+}
+
 .level-card {
   width: 100%;
   padding: 16px;
@@ -634,6 +638,10 @@ body.mistake-stage-3 .mistake-veil {
   border: 1px solid var(--line);
   color: var(--text);
   background: rgba(255, 255, 255, 0.03);
+}
+
+.sidebar-btn {
+  width: 100%;
 }
 
 .primary-btn:disabled,
