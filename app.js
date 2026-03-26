@@ -35,6 +35,8 @@ const STORAGE_KEY = "kommaprofi-progress-v2";
 const OPTIONS_KEY = "kommaprofi-options-v1";
 const ROUND_SIZE = 6;
 const MISTAKE_IMAGE_SRC = "assets/Falsch.jpg";
+const RECOVERY_IMAGE_SRC = "assets/alka-seltzer.png";
+const RECOVERY_DURATION = 2600;
 const MISTAKE_MEDIA = {
   1: {
     type: "image",
@@ -250,6 +252,22 @@ function restartTrainerFromBeginning() {
   );
 }
 
+function showRecoveryImageThenRestart() {
+  clearMistakeTimers();
+  mistakeMediaEl.classList.remove("hidden");
+  mistakeActionsEl.classList.add("hidden");
+  mistakeVideoEl.pause();
+  mistakeVideoEl.classList.add("hidden");
+  mistakeVideoEl.removeAttribute("src");
+  mistakeVideoEl.load();
+  mistakeImageEl.src = RECOVERY_IMAGE_SRC;
+  mistakeImageEl.alt = "Alka-Seltzer vor dem Neustart des Trainers";
+  mistakeImageEl.classList.remove("hidden");
+  state.mistakeResetTimer = window.setTimeout(() => {
+    restartTrainerFromBeginning();
+  }, RECOVERY_DURATION);
+}
+
 function showMistakeMedia(stage) {
   const config = MISTAKE_MEDIA[stage];
   if (!config) {
@@ -263,6 +281,7 @@ function showMistakeMedia(stage) {
 
   if (config.type === "image") {
     mistakeImageEl.src = config.src;
+    mistakeImageEl.alt = "Fehlerbild im Fehlerrausch-Modus";
     mistakeImageEl.classList.remove("hidden");
     state.mistakeHideTimer = window.setTimeout(() => {
       hideMistakeMedia();
@@ -283,7 +302,7 @@ function showMistakeMedia(stage) {
     state.restartPending = true;
     mistakeActionsEl.classList.remove("hidden");
     state.mistakeResetTimer = window.setTimeout(() => {
-      restartTrainerFromBeginning();
+      showRecoveryImageThenRestart();
     }, config.duration);
     return;
   }
@@ -1123,7 +1142,7 @@ pathResetBtn.addEventListener("click", resetProgress);
 requireWhyEl.addEventListener("change", handleOptionChange);
 chModeEl.addEventListener("change", handleOptionChange);
 errorModeEl.addEventListener("change", handleOptionChange);
-mistakeResumeBtn.addEventListener("click", restartTrainerFromBeginning);
+mistakeResumeBtn.addEventListener("click", showRecoveryImageThenRestart);
 
 try {
   setLoading("Übungen werden vorbereitet ...");
