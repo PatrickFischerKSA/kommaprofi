@@ -76,6 +76,7 @@ const state = {
   mistakeHideTimer: null,
   mistakeResetTimer: null,
   restartPending: false,
+  recoveryAdvancePending: false,
 };
 
 const levelGridEl = document.getElementById("level-grid");
@@ -214,6 +215,7 @@ function clearMistakeTimers() {
 
 function hideMistakeMedia() {
   mistakeMediaEl.classList.add("hidden");
+  mistakeMediaEl.classList.remove("recovery-shot");
   mistakeImageEl.classList.add("hidden");
   mistakeVideoEl.classList.add("hidden");
   mistakeActionsEl.classList.add("hidden");
@@ -238,23 +240,34 @@ function clearMistakeMode() {
   clearMistakeTimers();
   state.mistakeStage = 0;
   state.restartPending = false;
+  state.recoveryAdvancePending = false;
   applyMistakeStage();
   hideMistakeMedia();
 }
 
-function restartTrainerFromBeginning() {
+function finishRecoveryMode() {
+  const shouldAdvance =
+    state.recoveryAdvancePending ||
+    (state.locked && Boolean(state.evaluation) && !state.evaluation.isCorrect);
+
   clearMistakeMode();
-  state.currentLevelId = LEVELS[0].id;
-  startRound();
+
+  if (shouldAdvance) {
+    nextTask("Alka-Seltzer wirkt. Es geht klar mit der nächsten Aufgabe weiter.");
+    return;
+  }
+
   setFeedback(
-    "Der Fehlerrausch ist vorbei. Der Trainer startet wieder am Anfang.",
+    "Alka-Seltzer wirkt. Du kannst klar weiterspielen.",
     "info"
   );
 }
 
-function showRecoveryImageThenRestart() {
+function showRecoveryImageThenClear() {
   clearMistakeTimers();
+  state.restartPending = true;
   mistakeMediaEl.classList.remove("hidden");
+  mistakeMediaEl.classList.add("recovery-shot");
   mistakeActionsEl.classList.add("hidden");
   mistakeVideoEl.pause();
   mistakeVideoEl.classList.add("hidden");
@@ -264,7 +277,7 @@ function showRecoveryImageThenRestart() {
   mistakeImageEl.alt = "Alka-Seltzer vor dem Neustart des Trainers";
   mistakeImageEl.classList.remove("hidden");
   state.mistakeResetTimer = window.setTimeout(() => {
-    restartTrainerFromBeginning();
+    finishRecoveryMode();
   }, RECOVERY_DURATION);
 }
 
@@ -276,6 +289,7 @@ function showMistakeMedia(stage) {
 
   clearMistakeTimers();
   mistakeMediaEl.classList.remove("hidden");
+  mistakeMediaEl.classList.remove("recovery-shot");
   mistakeImageEl.classList.add("hidden");
   mistakeVideoEl.classList.add("hidden");
 
@@ -300,9 +314,11 @@ function showMistakeMedia(stage) {
 
   if (stage === 3) {
     state.restartPending = true;
+    state.recoveryAdvancePending =
+      state.locked && Boolean(state.evaluation) && !state.evaluation.isCorrect;
     mistakeActionsEl.classList.remove("hidden");
     state.mistakeResetTimer = window.setTimeout(() => {
-      showRecoveryImageThenRestart();
+      showRecoveryImageThenClear();
     }, config.duration);
     return;
   }
@@ -489,10 +505,6 @@ function resetTaskState() {
 }
 
 function startRound() {
-  if (state.restartPending) {
-    return;
-  }
-
   state.round = buildRound(state.currentLevelId);
   state.currentIndex = 0;
   resetTaskState();
@@ -504,10 +516,6 @@ function startRound() {
 }
 
 function startLevel(levelId) {
-  if (state.restartPending) {
-    return;
-  }
-
   state.currentLevelId = levelId;
   startRound();
 }
@@ -978,7 +986,7 @@ function render() {
 }
 
 function toggleSlot(index) {
-  if (state.locked || state.restartPending) {
+  if (state.locked) {
     return;
   }
 
@@ -994,7 +1002,7 @@ function toggleSlot(index) {
 }
 
 function clearSelection() {
-  if (state.locked || state.restartPending) {
+  if (state.locked) {
     return;
   }
 
@@ -1046,7 +1054,7 @@ function handleFailure() {
 function checkCurrentTask() {
   const exercise = currentExercise();
 
-  if (!exercise || state.restartPending) {
+  if (!exercise) {
     return;
   }
 
@@ -1070,11 +1078,7 @@ function checkCurrentTask() {
   handleFailure();
 }
 
-function nextTask() {
-  if (state.restartPending) {
-    return;
-  }
-
+function nextTask(message = "Nächste Aufgabe geladen. Lies den Satz einmal komplett, bevor du einzelne Stellen anklickst.") {
   if (state.currentIndex < state.round.length - 1) {
     state.currentIndex += 1;
   } else {
@@ -1084,10 +1088,7 @@ function nextTask() {
 
   resetTaskState();
   render();
-  setFeedback(
-    "Nächste Aufgabe geladen. Lies den Satz einmal komplett, bevor du einzelne Stellen anklickst.",
-    "info"
-  );
+  setFeedback(message, "info");
 }
 
 function handleOptionChange() {
@@ -1142,7 +1143,7 @@ pathResetBtn.addEventListener("click", resetProgress);
 requireWhyEl.addEventListener("change", handleOptionChange);
 chModeEl.addEventListener("change", handleOptionChange);
 errorModeEl.addEventListener("change", handleOptionChange);
-mistakeResumeBtn.addEventListener("click", showRecoveryImageThenRestart);
+mistakeResumeBtn.addEventListener("click", showRecoveryImageThenClear);
 
 try {
   setLoading("Übungen werden vorbereitet ...");

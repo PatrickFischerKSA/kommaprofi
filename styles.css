@@ -153,6 +153,28 @@ body.mistake-stage-3 .mistake-veil {
   background: rgba(7, 17, 25, 0.82);
 }
 
+body.mistake-stage-1 .mistake-media:not(.recovery-shot) .mistake-media-frame {
+  animation:
+    mistake-pop 0.25s ease,
+    mistake-spin 1.45s linear infinite reverse;
+}
+
+body.mistake-stage-2 .mistake-media:not(.recovery-shot) .mistake-media-frame {
+  animation:
+    mistake-pop 0.25s ease,
+    mistake-spin 0.82s linear infinite reverse;
+}
+
+body.mistake-stage-3 .mistake-media:not(.recovery-shot) .mistake-media-frame {
+  animation:
+    mistake-pop 0.25s ease,
+    mistake-spin 0.46s linear infinite reverse;
+}
+
+.mistake-media.recovery-shot .mistake-media-frame {
+  animation: mistake-pop 0.25s ease;
+}
+
 .mistake-video {
   background: #020406;
 }
@@ -172,6 +194,15 @@ body.mistake-stage-3 .mistake-veil {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes mistake-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
