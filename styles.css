@@ -157,6 +157,13 @@ body.mistake-stage-3 .mistake-veil {
   background: #020406;
 }
 
+.mistake-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: auto;
+}
+
 @keyframes mistake-pop {
   from {
     opacity: 0;

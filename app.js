@@ -110,6 +110,8 @@ const rulebookListEl = document.getElementById("rulebook-list");
 const mistakeMediaEl = document.getElementById("mistake-media");
 const mistakeImageEl = document.getElementById("mistake-image");
 const mistakeVideoEl = document.getElementById("mistake-video");
+const mistakeActionsEl = document.getElementById("mistake-actions");
+const mistakeResumeBtn = document.getElementById("mistake-resume-btn");
 
 function createEmptyProgress() {
   return {
@@ -212,6 +214,7 @@ function hideMistakeMedia() {
   mistakeMediaEl.classList.add("hidden");
   mistakeImageEl.classList.add("hidden");
   mistakeVideoEl.classList.add("hidden");
+  mistakeActionsEl.classList.add("hidden");
   mistakeVideoEl.pause();
   mistakeVideoEl.removeAttribute("src");
   mistakeVideoEl.load();
@@ -278,6 +281,7 @@ function showMistakeMedia(stage) {
 
   if (stage === 3) {
     state.restartPending = true;
+    mistakeActionsEl.classList.remove("hidden");
     state.mistakeResetTimer = window.setTimeout(() => {
       restartTrainerFromBeginning();
     }, config.duration);
@@ -1119,6 +1123,7 @@ pathResetBtn.addEventListener("click", resetProgress);
 requireWhyEl.addEventListener("change", handleOptionChange);
 chModeEl.addEventListener("change", handleOptionChange);
 errorModeEl.addEventListener("change", handleOptionChange);
+mistakeResumeBtn.addEventListener("click", restartTrainerFromBeginning);
 
 try {
   setLoading("Übungen werden vorbereitet ...");
